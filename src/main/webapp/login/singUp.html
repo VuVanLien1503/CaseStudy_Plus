@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book Login</title>
+  <link rel="stylesheet" media="all" href="https://cpwebassets.codepen.io/assets/global/global-0b932d80445462f790a3461ec6768eb7290edbe769dd2e1c4efaedafa5582d5c.css">
+  <link rel="stylesheet" media="screen" href="https://cpwebassets.codepen.io/assets/packs/css/everypage-b6b2efde.css">
+  <link rel="stylesheet" media="all" href="https://cpwebassets.codepen.io/assets/page/page-345d2661188ccfb81d8d25dc1f6081b1116e59e3b4e5eb5955e430d5ac0b787a.css">
+  <link rel="stylesheet" media="screen" href="https://cpwebassets.codepen.io/assets/accounts/form-776ea921c2b1e16b31b143a01c75e69304b29401d144d89a624cdeabf7ed9749.css">
+</head>
+<body class="body-login logged-out not-team" data-sidebar-collapsed="false" data-mobile-nav-open="false">
+<div class="login-wrap">
+  <header class="login-header">
+    <h2 class="little-big-header"> R E G I S T E R </h2>
+  </header>
+  <div class="flex-grid">
+    <div class="login-half left">
+      <div class="login-area">
+        <form class="login-form top-label-form" action="/login" method="post">
+          <div id="login-name" class="field">
+            <label for="login-email-field"> Name</label>
+            <input type="text" name="name" id="login-name-field">
+          </div>
+          <div id="login-email" class="field">
+            <label for="login-email-field"> Email</label>
+            <input type="text" name="email" id="login-email-field">
+          </div>
+          <div id="login-password" class="field">
+            <label for="login-password-field">Password</label>
+            <input type="password" name="password" id="login-password-field">
+          </div>
+          <div id="login-error"></div>
+          <div>
+            <button id="log-in-button" class="recaptcha-trigger-button button green action-button expand-right">
+              <span class="label">Register</span>
+              <span class="spinner"></span>
+            </button>
+            &nbsp;&nbsp;
+            <a href="#" id="forgot-password-link" class="forgot-password-link">
+              Forgot Password?
+            </a>
+          </div>
+        </form>
+        <form class="module login-form top-label-form" id="forgot-password-form" action="#0">
+          <h3>Reset Your Password</h3>
+          <div class="field">
+            <label for="forgot-email"> Email</label>
+            <input type="text" id="forgot-email" name="forgot-email" placeholder="your@email.com" required="">
+          </div>
+          <div class="field">
+            <input id="forgot-email-btn" type="submit" value="Send Password Reset Email" class="button button-medium button-fullwidth">
+          </div>
+          <div id="sent-message">
+            <div id="sent-message-message"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="login-divider">
+      <div class="bar bar-top"></div>
+      <span class="login-or">H  L  S</span>
+      <div class="bar bar-bottom"></div>
+    </div>
+    <div class="login-half right">
+      <div>
+        <img src="../image/imageBook/lapTrinh/Sach_Lap_Trinh_1.png" alt="error" style="width: 500px;height: 400px;background: red">
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
