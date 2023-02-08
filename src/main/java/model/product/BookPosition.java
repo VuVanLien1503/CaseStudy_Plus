@@ -28,6 +28,13 @@ public class BookPosition {
         this.status = status;
     }
 
+    public BookPosition(String name, int quantity, String position, int quantityNow) {
+        this.name = name;
+        this.quantity = quantity;
+        this.position = position;
+        this.quantityNow = quantityNow;
+    }
+
     public int getId() {
         return id;
     }

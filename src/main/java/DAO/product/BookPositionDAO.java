@@ -17,6 +17,7 @@ public class BookPositionDAO {
         connection = MyConnection.getConnection();
     }
     private final String SELECT_ALL_BOOK_POSITION = "select * from book_position where status = true";
+    private final String INSERT_BOOK_POSITION = "insert into book_position(name,positionContain,position,quantityNow)values(?,?,?,?)";
     public List<BookPosition> selectAll(){
         List<BookPosition> bookPositions = new ArrayList<>();
         try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOK_POSITION);
@@ -33,5 +34,17 @@ public class BookPositionDAO {
             e.printStackTrace();
         }
         return bookPositions;
+    }
+    public  void  create(BookPosition bookPosition){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BOOK_POSITION)
+        ){
+            preparedStatement.setString(1, bookPosition.getName());
+            preparedStatement.setInt(2, bookPosition.getQuantity());
+            preparedStatement.setString(3, bookPosition.getPosition());
+            preparedStatement.setInt(4, bookPosition.getQuantityNow());
+            preparedStatement.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
