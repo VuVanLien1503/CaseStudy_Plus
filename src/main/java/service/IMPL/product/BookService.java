@@ -21,12 +21,12 @@ public class BookService implements ICrud<Book> {
     public void insert(Book book) {
     }
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean update(Book book) {
-        return false;
+    public void update(Book book) {
+
     }
 }

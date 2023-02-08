@@ -6,7 +6,19 @@
 </head>
 <body>
 <h1>----------List Book--------------</h1>
-<table>
+<div>
+  <div>
+    <form action="/BookServlet?action=findByCategory" method="post">
+      <input type="text" name="find" placeholder="Find By Category">
+      <button>Find</button>
+    </form>
+  </div>
+  <div>
+    <button> <a href="/BookServlet?action=create" >Create New Book</a></button>
+  </div>
+</div>
+</table>
+<table border="1" style="border-collapse: collapse;margin-top: 20px">
   <tr>
     <th>STT</th>
     <th>name</th>
@@ -23,7 +35,7 @@
     <td>${stt.index+1}</td>
     <td>${element.name}</td>
     <td>${element.descriptions}</td>
-    <td><img src="${element.image}" alt="error"></td>
+    <td><img src="${element.image}" alt="error" style="width: 100px;height: 120px"></td>
     <td>${element.status_book}</td>
     <td>${element.quantity}</td>
     <td>${element.producer_id}</td>
