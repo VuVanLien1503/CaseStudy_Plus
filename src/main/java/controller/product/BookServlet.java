@@ -1,4 +1,5 @@
 package controller.product;
+
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;
@@ -12,9 +13,9 @@ import java.io.IOException;
 @WebServlet(name = "BookServlet", value = "/BookServlet")
 public class BookServlet extends HttpServlet {
     BookService bookService = new BookService();
-    BookPositionService bookPositionService=new BookPositionService();
-    CategoryService categoryService=new CategoryService();
-    ProducerService producerService=new ProducerService();
+    BookPositionService bookPositionService = new BookPositionService();
+    CategoryService categoryService = new CategoryService();
+    ProducerService producerService = new ProducerService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,7 +25,7 @@ public class BookServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                showCreate(request,response);
+                showCreate(request, response);
                 break;
             default:
                 showList(request, response);
@@ -46,7 +47,16 @@ public class BookServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private void showCreate(HttpServletRequest request, HttpServletResponse response) {
-        request.setAttribute("listProducer",producerService.selectAll());
+        request.setAttribute("listProducer", producerService.selectAll());
+        request.setAttribute("listCategory", categoryService.selectAll());
+        request.setAttribute("listBookPosition", bookPositionService.selectAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
