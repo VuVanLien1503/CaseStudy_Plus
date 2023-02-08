@@ -1,14 +1,21 @@
 package service.IMPL.product;
 
+import DAO.product.CategoryDAO;
 import model.product.Category;
 import service.myinterface.ICrud;
 
 import java.util.List;
 
 public class CategoryService implements ICrud<Category> {
+    private final CategoryDAO categoryDAO;
+
+    public CategoryService() {
+        categoryDAO = new CategoryDAO();
+    }
+
     @Override
     public List<Category> selectAll() {
-        return null;
+        return categoryDAO.selectAll();
     }
 
     @Override
