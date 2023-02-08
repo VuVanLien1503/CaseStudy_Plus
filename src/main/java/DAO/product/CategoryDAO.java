@@ -17,6 +17,7 @@ public class CategoryDAO {
     private final String INSERT_CATEGORY = "insert into category(name, status) value(?,?)";
     private final String UPDATE_CATEGORY = "update category set nam = ? where id = ?";
     private final String DELETE_CATEGORY = "update category set status = false where id = ?";
+    private int id;
 
     public CategoryDAO() {
         connection = MyConnection.getConnection();
