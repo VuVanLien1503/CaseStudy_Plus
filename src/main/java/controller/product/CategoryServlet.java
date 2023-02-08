@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "CategoryServlet", value = "/categories")
+@WebServlet(name = "CategoryServlet", value = "/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
     private final CategoryService categoryService;
 

@@ -16,6 +16,15 @@
   <div>
     <button> <a href="/BookServlet?action=create" >Create New Book</a></button>
   </div>
+  <div style="margin: 5px">
+    <button><a href="/BookPositionServlet">BookPositionServlet</a></button>
+  </div>
+  <div style="margin: 5px">
+    <button><a href="/CategoryServlet">CategoryServlet></a></button>
+  </div>
+  <div style="margin: 5px">
+    <button><a href="/ProducerServlet">ProducerServlet></a></button>
+  </div>
 </div>
 </table>
 <table border="1" style="border-collapse: collapse;margin-top: 20px">
