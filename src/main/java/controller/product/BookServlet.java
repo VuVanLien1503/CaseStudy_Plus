@@ -1,5 +1,4 @@
 package controller.product;
-import model.product.Book;
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;
@@ -9,14 +8,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "BookServlet", value = "/BookServlet")
 public class BookServlet extends HttpServlet {
     BookService bookService = new BookService();
-    BookPositionService bookPositionService=new BookPositionService();
-    CategoryService categoryService=new CategoryService();
-    ProducerService producerService=new ProducerService();
+    BookPositionService bookPositionService = new BookPositionService();
+    CategoryService categoryService = new CategoryService();
+    ProducerService producerService = new ProducerService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,8 +42,7 @@ public class BookServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-        List<Book>listBook=bookService.selectAll();
-        request.setAttribute("listBooks", listBook);
+        request.setAttribute("listBooks", bookService.selectAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/display.jsp");
         try {
             dispatcher.forward(request, response);
@@ -54,6 +51,14 @@ public class BookServlet extends HttpServlet {
         }
     }
     private void showCreate(HttpServletRequest request, HttpServletResponse response) {
-        request.setAttribute("listProducer",producerService.selectAll());
+        request.setAttribute("listProducer", producerService.selectAll());
+        request.setAttribute("listCategory", categoryService.selectAll());
+        request.setAttribute("listBookPosition", bookPositionService.selectAll());
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }
