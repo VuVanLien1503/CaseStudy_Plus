@@ -1,6 +1,8 @@
 package controller.product;
-
+import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
+import service.IMPL.product.CategoryService;
+import service.IMPL.product.ProducerService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -10,6 +12,9 @@ import java.io.IOException;
 @WebServlet(name = "BookServlet", value = "/BookServlet")
 public class BookServlet extends HttpServlet {
     BookService bookService = new BookService();
+    BookPositionService bookPositionService=new BookPositionService();
+    CategoryService categoryService=new CategoryService();
+    ProducerService producerService=new ProducerService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,6 +23,9 @@ public class BookServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "create":
+                showCreate(request,response);
+                break;
             default:
                 showList(request, response);
                 break;
@@ -37,5 +45,8 @@ public class BookServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
+    }
+    private void showCreate(HttpServletRequest request, HttpServletResponse response) {
+        request.setAttribute("listProducer",producerService.selectAll());
     }
 }
