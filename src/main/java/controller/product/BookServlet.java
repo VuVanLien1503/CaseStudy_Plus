@@ -30,7 +30,7 @@ public class BookServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-        request.setAttribute("listBooks", bookService.selectAll());
+        request.setAttribute("listPosition", bookService.selectAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/display.jsp");
         try {
             dispatcher.forward(request, response);

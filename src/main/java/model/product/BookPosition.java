@@ -3,28 +3,28 @@ package model.product;
 public class BookPosition {
     private int id;
     private String name;
-    private int positionContain;
+    private int quantity;
     private String position;
-    private int quantityVailble;
+    private int quantityNow;
     private boolean status =true;
 
     public BookPosition() {
     }
 
-    public BookPosition(String name, int positionContain, String position, int quantityVailble, boolean status) {
+    public BookPosition(String name, int quantity, String position, int quantityNow, boolean status) {
         this.name = name;
-        this.positionContain = positionContain;
+        this.quantity = quantity;
         this.position = position;
-        this.quantityVailble = quantityVailble;
+        this.quantityNow = quantityNow;
         this.status = status;
     }
 
-    public BookPosition(int id, String name, int positionContain, String position, int quantityVailble, boolean status) {
+    public BookPosition(int id, String name, int quantity, String position, int quantityNow, boolean status) {
         this.id = id;
         this.name = name;
-        this.positionContain = positionContain;
+        this.quantity = quantity;
         this.position = position;
-        this.quantityVailble = quantityVailble;
+        this.quantityNow = quantityNow;
         this.status = status;
     }
 
@@ -44,12 +44,12 @@ public class BookPosition {
         this.name = name;
     }
 
-    public int getPositionContain() {
-        return positionContain;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setPositionContain(int positionContain) {
-        this.positionContain = positionContain;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getPosition() {
@@ -60,12 +60,12 @@ public class BookPosition {
         this.position = position;
     }
 
-    public int getQuantityVailble() {
-        return quantityVailble;
+    public int getQuantityNow() {
+        return quantityNow;
     }
 
-    public void setQuantityVailble(int quantityVailble) {
-        this.quantityVailble = quantityVailble;
+    public void setQuantityNow(int quantityNow) {
+        this.quantityNow = quantityNow;
     }
 
     public boolean isStatus() {
