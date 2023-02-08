@@ -24,12 +24,12 @@ public class BookPositionService implements ICrud<BookPosition> {
     }
 
     @Override
-    public boolean delete(int id) {
-        return false;
+    public void delete(int id) {
+
     }
 
     @Override
-    public boolean update(BookPosition bookPosition) {
-        return false;
+    public void update(BookPosition bookPosition) {
+
     }
 }
