@@ -24,10 +24,10 @@ public class BookPositionServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "delete":
-
-                break;
             case "create":
+                showCreateForm(request,response);
+                break;
+            case "delete":
 
                 break;
             case "update":
@@ -48,13 +48,13 @@ public class BookPositionServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "delete":
-
-                break;
             case "create":
-
+                createPosition(request,response);
                 break;
             case "update":
+                break;
+            case "delete":
+
                 break;
             default:
                 break;
@@ -69,5 +69,40 @@ public class BookPositionServlet extends HttpServlet {
         } catch (ServletException| IOException e) {
             e.printStackTrace();
         }
+    }
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response){
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void createPosition(HttpServletRequest request, HttpServletResponse response){
+        try {
+            String name = request.getParameter("name");
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String position = request.getParameter("position");
+            int quantityNow = Integer.parseInt(request.getParameter("quantityNow"));
+            BookPosition bookPosition = new BookPosition(name,quantity,position,quantityNow);
+            bookPositionService.insert(bookPosition);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
+            request.setAttribute("message","New position war created");
+            try {
+                dispatcher.forward(request,response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        }catch (NumberFormatException e){
+            e.printStackTrace();
+            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
+            request.setAttribute("error","New creation failed. Review");
+            try {
+                dispatcher.forward(request,response);
+            } catch (ServletException | IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 }

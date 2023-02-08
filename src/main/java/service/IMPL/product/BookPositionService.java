@@ -20,7 +20,7 @@ public class BookPositionService implements ICrud<BookPosition> {
 
     @Override
     public void insert(BookPosition bookPosition) {
-
+        bookPositionDAO.create(bookPosition);
     }
 
     @Override
