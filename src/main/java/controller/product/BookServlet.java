@@ -1,4 +1,5 @@
 package controller.product;
+import model.product.Book;
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;
@@ -8,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "BookServlet", value = "/BookServlet")
 public class BookServlet extends HttpServlet {
@@ -18,6 +20,8 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -34,11 +38,14 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
 
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-        request.setAttribute("listPosition", bookService.selectAll());
+        List<Book>listBook=bookService.selectAll();
+        request.setAttribute("listBooks", listBook);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/display.jsp");
         try {
             dispatcher.forward(request, response);
