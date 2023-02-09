@@ -3,10 +3,28 @@
 <html>
 <head>
     <title>List Category</title>
+    <style>
+        .message {
+            color: darkred;
+        }
+        .message1{
+            color: green;
+        }
+    </style>
 </head>
 <body>
 <h1>List Category</h1>
 <a href="/CategoryServlet?action=insert"><button>Create new category</button></a>
+<p>
+    <c:if test='${requestScope["message"] != null}'>
+        <i class="message">${requestScope["message"]}</i>
+    </c:if>
+</p>
+<p>
+    <c:if test='${requestScope["message1"] != null}'>
+        <i class="message1">${requestScope["message1"]}</i>
+    </c:if>
+</p>
 <table border="1" style="border-collapse: collapse">
     <tr>
         <th>STT: </th>
