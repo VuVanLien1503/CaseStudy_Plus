@@ -20,7 +20,7 @@ public class CategoryService implements ICrud<Category> {
 
     @Override
     public void insert(Category category) {
-
+        categoryDAO.insert(category);
     }
 
     @Override

@@ -13,9 +13,8 @@ import java.util.List;
 public class CategoryDAO {
     private final Connection connection;
     private final String SELECT_ALL_CATEGORY = "select * from category where status = true";
-    private final String SELECT_CATEGORY_BY_ID = "select * from category where id = ? and status = true";
-    private final String INSERT_CATEGORY = "insert into category(name, status) value(?,?)";
-    private final String UPDATE_CATEGORY = "update category set nam = ? where id = ?";
+    private final String INSERT_CATEGORY = "insert into category(name) value(?)";
+    private final String UPDATE_CATEGORY = "update category set name = ? where id = ?";
     private final String DELETE_CATEGORY = "update category set status = false where id = ?";
     private int id;
 
@@ -34,6 +33,14 @@ public class CategoryDAO {
             a.printStackTrace();
         }
         return categories;
+    }
+    public void insert(Category category){
+        try(PreparedStatement preparedStatement=connection.prepareStatement(INSERT_CATEGORY)){
+            preparedStatement.setString(1,category.getName());
+            preparedStatement.executeUpdate();
+        }catch(SQLException a){
+            a.printStackTrace();
+        }
     }
 
 }

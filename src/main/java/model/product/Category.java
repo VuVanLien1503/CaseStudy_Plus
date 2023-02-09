@@ -19,6 +19,10 @@ public class Category {
         this.status = status;
     }
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
