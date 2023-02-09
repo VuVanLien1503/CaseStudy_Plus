@@ -20,7 +20,7 @@ public class ProducerService implements ICrud<Producer>, ISearch<Producer> {
 
     @Override
     public void insert(Producer producer) {
-        producerDAO.create(producer);
+        producerDAO.insert(producer);;
     }
 
     @Override

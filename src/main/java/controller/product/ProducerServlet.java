@@ -7,7 +7,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 
@@ -71,14 +70,22 @@ public class ProducerServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
-        producerService.update(new Producer( name, true));
-        response.sendRedirect("/ProducerServlet");
+        producerService.insert(new Producer(name));
+        try {
+            response.sendRedirect("/ProducerServlet");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         producerService.update(new Producer(id, name, true));
         response.sendRedirect("/ProducerServlet");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
+
     }
 
     private void  listProducer(HttpServletRequest request, HttpServletResponse response) {
