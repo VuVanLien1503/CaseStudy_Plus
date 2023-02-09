@@ -23,6 +23,9 @@
     <input type="text" name="search">
     <button type="submit">Search</button>
 </form>
+<form>
+    <a href="/BookServlet"><button type="button">Back to home</button></a>
+</form>
 <table>
     <tr>
         <th colspan="8"><h2>LIST POSITION</h2></th>

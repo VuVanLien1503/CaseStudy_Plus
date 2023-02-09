@@ -27,7 +27,6 @@
         <span class="error">${requestScope["error"]}</span>
     </c:if>
 </p>
-<p>hoàng</p>
 <form method="post">
     <fieldset style="width: 20%">
         <legend>Book Position Information</legend>

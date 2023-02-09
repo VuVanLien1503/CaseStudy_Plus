@@ -9,8 +9,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-
 @WebServlet(name = "BookPositionServlet", value = "/BookPositionServlet")
 public class BookPositionServlet extends HttpServlet {
     private final  MyRegex myRegex;
@@ -35,7 +33,7 @@ public class BookPositionServlet extends HttpServlet {
                 showUpdateForm(request,response);
                 break;
             case "delete":
-
+                showDeleteForm(request,response);
                 break;
             default:
                 listBookPosition(request,response);
@@ -60,7 +58,7 @@ public class BookPositionServlet extends HttpServlet {
                 updatePosition(request,response);
                 break;
             case "delete":
-
+                deletePosition(request,response);
                 break;
             default:
                 break;
@@ -98,8 +96,10 @@ public class BookPositionServlet extends HttpServlet {
         if (regexName&regexQuantity&regexPosition&regexQuantityNow) {
             int quantity =Integer.parseInt(quantityString);
             int quantityNow = Integer.parseInt(quantityNowString);
-            bookPosition = new BookPosition(name, quantity, position, quantityNow);
-            bookPositionService.insert(bookPosition);
+            if (quantityNow<=quantity){
+                bookPosition = new BookPosition(name, quantity, position, quantityNow);
+                bookPositionService.insert(bookPosition);
+            }
         }
         if (bookPosition == null) {
             dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
@@ -114,10 +114,8 @@ public class BookPositionServlet extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
                 request.setAttribute("message", "New position war created");
                 dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (ServletException |IOException e) {
+                e.printStackTrace();
             }
 
         }
@@ -136,32 +134,51 @@ public class BookPositionServlet extends HttpServlet {
     private void updatePosition(HttpServletRequest request, HttpServletResponse response){
         BookPosition bookPosition = null;
         RequestDispatcher dispatcher;
-            int id = Integer.parseInt(request.getParameter("id"));
-            String name = request.getParameter("name");
-            String position = request.getParameter("position");
-            boolean regexName = myRegex.regex(name,myRegex.getPatternName());
-            boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
-            if (regexName&regexPosition){
-                bookPosition = new BookPosition(id,name,position);
-                bookPositionService.update(bookPosition);
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String position = request.getParameter("position");
+        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
+        boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
+        if (regexName&regexPosition){
+            bookPosition = new BookPosition(id,name,position);
+            bookPositionService.update(bookPosition);
+        }
+        if (bookPosition == null){
+            dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
+            request.setAttribute("error", "New creation failed. Review");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
             }
-            if (bookPosition == null){
-                dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
-                request.setAttribute("error", "New creation failed. Review");
-                try {
-                    dispatcher.forward(request, response);
-                } catch (ServletException | IOException e) {
-                    e.printStackTrace();
-                }
-            }else {
-                dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
-                request.setAttribute("message","Update successful!");
-                try {
-                    dispatcher.forward(request,response);
-                } catch (ServletException | IOException e) {
-                    e.printStackTrace();
-                }
+        }else {
+            dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
+            request.setAttribute("message","Update successful!");
+            try {
+                dispatcher.forward(request,response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
             }
         }
-
+    }
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        BookPosition bookPosition = bookPositionService.selectById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/delete.jsp");
+        request.setAttribute("delete",bookPosition);
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException | IOException e) {
+           e.printStackTrace();
+        }
+    }
+    private void deletePosition(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        bookPositionService.delete(id);
+        try {
+            response.sendRedirect("/BookPositionServlet");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

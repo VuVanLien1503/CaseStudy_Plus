@@ -26,7 +26,7 @@ public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPos
 
     @Override
     public void delete(int id) {
-
+        bookPositionDAO.delete(id);
     }
 
     @Override
