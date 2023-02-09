@@ -28,7 +28,7 @@
         <th colspan="8"><h2>LIST POSITION</h2></th>
     </tr>
     <tr>
-        <th>ID</th>
+        <th>STT</th>
         <th>NAME</th>
         <th>QUANTITY</th>
         <th>POSITION</th>
@@ -36,9 +36,14 @@
         <th>STATUS</th>
         <th>ACTION</th>
     </tr>
+<<<<<<< HEAD
     <c:forEach var="element" items='${requestScope["listBookPosition"]}'>
+=======
+    <!-- Nhận giá trị products từ servlet với biến transmitted: -->
+    <c:forEach var="element" items='${requestScope["listBookPosition"]}' varStatus="STT">
+>>>>>>> bookposition
         <tr>
-            <td>${element.getId()}</td>
+            <td>${STT.index+1}</td>
             <td>${element.getName()}</td>
             <td>${element.getQuantity()}</td>
             <td>${element.getPosition()}</td>
