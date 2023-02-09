@@ -7,7 +7,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "CategoryServlet", value = "/categories")
+@WebServlet(name = "CategoryServlet", value = "/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
     private final CategoryService categoryService;
 
@@ -28,7 +28,7 @@ public class CategoryServlet extends HttpServlet {
     }
 
     private void showListCategory(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("category/list.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/category/list.jsp");
         request.setAttribute("categories", categoryService.selectAll());
         try {
             dispatcher.forward(request, response);
