@@ -42,7 +42,7 @@
     <c:forEach var="element" items='${requestScope["listBookPosition"]}' varStatus="STT">
         <tr>
             <td>${STT.index+1}</td>
-            <td>${element.getName()}</td>
+            <td><a href="/BookPositionServlet?action=views&id=${element.getId()}">${element.getName()}</a></td>
             <td>${element.getQuantity()}</td>
             <td>${element.getPosition()}</td>
             <td>${element.getQuantityNow()}</td>
