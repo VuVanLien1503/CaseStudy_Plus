@@ -31,16 +31,16 @@ public class ProducerServlet extends HttpServlet {
 
             switch (action) {
                 case "create":
-//                    showCreateForm(request, response);
+                    showCreateForm(request, response);
                     break;
                 case "edit":
-//                    showEditForm(request, response);
+                    showEditForm(request, response);
                     break;
                 case "delete":
-//                    showDeleteForm(request, response);
+                    showDeleteForm(request, response);
                     break;
                 case "view":
-//                    viewProducer(request, response);
+                    viewProducer(request, response);
                     break;
                 default:
                     listProducer(request, response);
@@ -48,26 +48,38 @@ public class ProducerServlet extends HttpServlet {
             }
         }
 
-//    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Producer producer = producerService.
-//        RequestDispatcher dispatcher;
-//        dispatcher;
-//        if(producer == null){
-//            dispatcher = request.getRequestDispatcher("error-404.jsp");
-//        } else {
-//            request.setAttribute("producer", producer);
-//            dispatcher = request.getRequestDispatcher("producer/delete.jsp");
-//        }
-//        try {
-//            dispatcher.forward(request, response);
-//        } catch (ServletException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                create(request, response);
+                break;
+            case "update":
+                update(request, response);
+                break;
+            default:
+                listProducer(request, response);
+        }
+    }
+
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String name = request.getParameter("name");
+        producerService.update(new Producer( name, true));
+        response.sendRedirect("/ProducerServlet");
+    }
+    private void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        producerService.update(new Producer(id, name, true));
+        response.sendRedirect("/ProducerServlet");
+    }
 
     private void  listProducer(HttpServletRequest request, HttpServletResponse response) {
         List<Producer> producerList= producerService.selectAll();
@@ -80,8 +92,37 @@ public class ProducerServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    private void viewProducer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/view.jsp");
+        request.setAttribute("producer", producerService.selectById(id));
+        dispatcher.forward(request, response);
     }
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/edit.jsp");
+        request.setAttribute("producer", producerService.selectById(id));
+        dispatcher.forward(request, response);
+    }
+
+    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/create.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        producerService.delete(id);
+        try {
+            response.sendRedirect("/ProducerServlet");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

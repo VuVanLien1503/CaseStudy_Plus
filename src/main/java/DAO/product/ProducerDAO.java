@@ -36,7 +36,7 @@ public class ProducerDAO {
         return producerList;
     }
 
-    public Producer findById(int id){
+    public Producer selectById(int id){
         Producer producer = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCER_BY_ID)){
             preparedStatement.setInt(1, id);

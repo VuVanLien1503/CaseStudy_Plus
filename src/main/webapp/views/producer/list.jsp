@@ -34,14 +34,14 @@
         <th colspan="8"><h2>LIST Producer</h2></th>
     </tr>
     <tr>
-        <th>ID</th>
+        <th>STT</th>
         <th>NAME</th>
         <th>STATUS</th>
         <th>ACTION</th>
     </tr>
-    <c:forEach var="element" items='${requestScope["listProducer"]}'>
+    <c:forEach var="element" items='${requestScope["listProducer"]}' varStatus="stt">
     <tr>
-        <td>${element.getId()}</td>
+        <td>${stt.index+1}</td>
         <td>${element.getName()}</td>
         <td>${element.isStatus()}</td>
         <td colspan="2">
