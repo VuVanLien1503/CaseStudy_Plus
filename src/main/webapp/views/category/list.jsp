@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>List Category</h1>
-<a href="/categories?action=create"><button>Create new category</button></a>
+<a href="/CategoryServlet?action=insert"><button>Create new category</button></a>
 <table border="1" style="border-collapse: collapse">
     <tr>
         <th>STT: </th>
