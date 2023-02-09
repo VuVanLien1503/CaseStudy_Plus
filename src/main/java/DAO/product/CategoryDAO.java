@@ -42,7 +42,8 @@ public class CategoryDAO {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                category = new Category(resultSet.getString("name"));
+               category=new Category(resultSet.getInt(1),
+                       resultSet.getString(2));
             }
         }catch (SQLException a){
             a.printStackTrace();

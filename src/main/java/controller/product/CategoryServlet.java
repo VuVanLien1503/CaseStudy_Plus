@@ -95,7 +95,8 @@ public class CategoryServlet extends HttpServlet {
     }
     private void update(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
-        categoryService.update(new Category(name));
+        int id = Integer.parseInt(request.getParameter("id"));
+        categoryService.update(new Category(id,name));
         try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("views/category/list.jsp");
             request.setAttribute("categories", categoryService.selectAll());
