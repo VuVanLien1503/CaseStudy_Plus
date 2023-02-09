@@ -21,6 +21,11 @@
     }
 </style>
 <body>
+<p>
+    <c:if test='${requestScope["message"] != null}'>
+        <span class="message">${requestScope["message"]}</span>
+    </c:if>
+</p>
 <h1>LIST Producer</h1>
     <form>
         <a href="/ProducerServlet?action=create"><button type="button">Create new Producer</button></a>

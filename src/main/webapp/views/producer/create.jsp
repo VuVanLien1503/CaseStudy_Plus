@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -11,6 +12,11 @@
     <title>CREATE PRODUCER</title>
 </head>
 <body>
+<p>
+    <c:if test='${requestScope["message"] != null}'>
+        <span class="message">${requestScope["message"]}</span>
+    </c:if>
+</p>
 <h1>CREATE PRODUCER</h1>
 <form method="post">
     <fieldset style="width: 20%">

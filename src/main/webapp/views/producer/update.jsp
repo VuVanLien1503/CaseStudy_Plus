@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -12,6 +13,11 @@
 </head>
 <body>
 <h1>UPDATE PRODUCER</h1>
+<p>
+    <c:if test='${requestScope["message"] != null}'>
+        <span class="message">${requestScope["message"]}</span>
+    </c:if>
+</p>
 <form action="ProducerServlet?action=update&id=${producer.id}" method="post">
     <fieldset style="width: 20%">
         <legend>Book Position Information</legend>

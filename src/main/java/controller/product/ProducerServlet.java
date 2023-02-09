@@ -2,6 +2,7 @@ package controller.product;
 
 import model.product.Producer;
 import service.IMPL.product.ProducerService;
+import service.MyRegex;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -14,9 +15,11 @@ import java.util.List;
 @WebServlet(name = "ProducerServlet", value = "/ProducerServlet")
 public class ProducerServlet extends HttpServlet {
     private final ProducerService producerService;
+    private final MyRegex myRegex;
 
     public ProducerServlet() {
         producerService = new ProducerService() ;
+        myRegex = new MyRegex();
     }
 
     @Override
@@ -70,11 +73,23 @@ public class ProducerServlet extends HttpServlet {
 
     private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
-        producerService.insert(new Producer(name));
-        try {
-            response.sendRedirect("/ProducerServlet");
-        } catch (IOException e) {
-            e.printStackTrace();
+        RequestDispatcher dispatcher;
+        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
+        if (regexName){
+            try {
+                producerService.insert(new Producer(name));
+                response.sendRedirect("/ProducerServlet");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            request.setAttribute("message", "không thành công");
+            dispatcher = request.getRequestDispatcher("views/producer/create.jsp");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -82,12 +97,26 @@ public class ProducerServlet extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        RequestDispatcher dispatcher;
+        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
         producerService.update(new Producer(id,name));
-        try {
-            response.sendRedirect("/ProducerServlet");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (regexName){
+            try {
+                producerService.insert(new Producer(name));
+                response.sendRedirect("/ProducerServlet");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            request.setAttribute("message", "không thành công");
+            dispatcher = request.getRequestDispatcher("views/producer/update.jsp");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
         }
+
 
     }
 
