@@ -11,14 +11,13 @@ import java.io.IOException;
 import java.util.List;
 
 
-
 @WebServlet(name = "ProducerServlet", value = "/ProducerServlet")
 public class ProducerServlet extends HttpServlet {
     private final ProducerService producerService;
     private final MyRegex myRegex;
 
     public ProducerServlet() {
-        producerService = new ProducerService() ;
+        producerService = new ProducerService();
         myRegex = new MyRegex();
     }
 
@@ -31,24 +30,24 @@ public class ProducerServlet extends HttpServlet {
             action = "";
         }
 
-            switch (action) {
-                case "create":
-                    showCreateForm(request, response);
-                    break;
-                case "update":
-                    showEditForm(request, response);
-                    break;
-                case "delete":
-                    showDeleteForm(request, response);
-                    break;
-                case "view":
-                    viewProducer(request, response);
-                    break;
-                default:
-                    listProducer(request, response);
-                    break;
-            }
+        switch (action) {
+            case "create":
+                showCreateForm(request, response);
+                break;
+            case "update":
+                showEditForm(request, response);
+                break;
+            case "delete":
+                showDeleteForm(request, response);
+                break;
+            case "view":
+                viewProducer(request, response);
+                break;
+            default:
+                listProducer(request, response);
+                break;
         }
+    }
 
 
     @Override
@@ -74,8 +73,8 @@ public class ProducerServlet extends HttpServlet {
     private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         RequestDispatcher dispatcher;
-        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
-        if (regexName){
+        boolean regexName = myRegex.regex(name, myRegex.getPatternName());
+        if (regexName) {
             try {
                 producerService.insert(new Producer(name));
                 response.sendRedirect("/ProducerServlet");
@@ -98,11 +97,12 @@ public class ProducerServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         RequestDispatcher dispatcher;
-        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
-        producerService.update(new Producer(id,name));
-        if (regexName){
+        boolean regexName = myRegex.regex(name, myRegex.getPatternName());
+//        boolean regexNumber = myRegex.regex(name,myRegex.getPatternName());
+
+        if (regexName) {
             try {
-                producerService.insert(new Producer(name));
+                producerService.update(new Producer(id, name));
                 response.sendRedirect("/ProducerServlet");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -112,16 +112,15 @@ public class ProducerServlet extends HttpServlet {
             dispatcher = request.getRequestDispatcher("views/producer/update.jsp");
             try {
                 dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
+            } catch (ServletException | NumberFormatException e) {
+                response.sendRedirect("/ProducerServlet");
             }
         }
 
-
     }
 
-    private void  listProducer(HttpServletRequest request, HttpServletResponse response) {
-        List<Producer> producerList= producerService.selectAll();
+    private void listProducer(HttpServletRequest request, HttpServletResponse response) {
+        List<Producer> producerList = producerService.selectAll();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("views/producer/list.jsp");
         request.setAttribute("listProducer", producerList);
         try {
@@ -143,7 +142,7 @@ public class ProducerServlet extends HttpServlet {
         request.setAttribute("producer", producerService.selectById(id));
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/update.jsp");
         try {
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
@@ -152,7 +151,7 @@ public class ProducerServlet extends HttpServlet {
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/create.jsp");
         try {
-            dispatcher.forward(request,response);
+            dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
