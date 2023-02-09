@@ -35,6 +35,12 @@ public class BookPosition {
         this.quantityNow = quantityNow;
     }
 
+    public BookPosition(int id,String name, String position) {
+        this.id = id;
+        this.name = name;
+        this.position = position;
+    }
+
     public int getId() {
         return id;
     }
