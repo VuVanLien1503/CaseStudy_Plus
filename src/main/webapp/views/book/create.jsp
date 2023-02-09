@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>---------------CREATE BOOK--------------</h1>
-<form action="/BookServlet?action=creat">
+<form action="/BookServlet?action=create" method="post">
     <table border="1" style="border-collapse: collapse">
         <tr>
             <th><label for="name"></label><i>Name</i></th>
@@ -18,7 +18,7 @@
         </tr>
         <tr>
             <th><label for="image"><i>Image</i></label></th>
-            <td><input type="file" name="image" id="image"></td>
+            <td><input type="file" name="imagePath" id="image"></td>
         </tr>
         <tr>
             <th><i>Status_Book</i></th>

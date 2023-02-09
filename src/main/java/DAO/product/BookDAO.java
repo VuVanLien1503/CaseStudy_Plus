@@ -12,7 +12,15 @@ import java.util.List;
 
 public class BookDAO {
     private final Connection connection;
-    private final String SELECT_ALL = "select * from book where status = true";
+    private final String SELECT_ALL = "SELECT book.id,book.name,book.descriptions,book.image,book.status_book,book.quantity,book.producer_id,book.category_id,book.book_position,book.status FROM book \n" +
+            "inner join producer on book.producer_id =producer.id\n" +
+            "inner join category on book.category_id =category.id\n" +
+            "inner join book_position on book.book_position = book_position.id\n" +
+            "where producer.status=true and category.status=true and book_position.status=true;\n";
+
+    private final String SELECT_BOOK ="insert into book(name,descriptions,image,status_book,quantity,producer_id,category_id,book_position) values(?,?,?,?,?,?,?,?);";
+
+
 
     public BookDAO() {
         connection = MyConnection.getConnection();
@@ -41,4 +49,28 @@ public class BookDAO {
         }
         return listBook;
     }
+    public void create(Book book) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOK)) {
+            connection.setAutoCommit(false);
+            preparedStatement.setString(1, book.getName());
+            preparedStatement.setString(2, book.getDescriptions());
+            preparedStatement.setString(3,book.getImage());
+            preparedStatement.setBoolean(4,book.isStatus_book());
+            preparedStatement.setInt(5,book.getQuantity());
+            preparedStatement.setInt(6,book.getProducer_id());
+            preparedStatement.setInt(7,book.getCategory_id());
+            preparedStatement.setInt(8, book.getBook_position());
+
+             preparedStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 }
