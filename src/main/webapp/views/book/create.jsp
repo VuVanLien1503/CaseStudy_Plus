@@ -21,10 +21,10 @@
             <td><input type="file" name="image" id="image"></td>
         </tr>
         <tr>
-            <th><label for="radio2"><i>Status_Book</i></label></th>
+            <th><i>Status_Book</i></th>
             <td>
-                <input type="radio" id="radio2" name="status_book" value="1">Sách Mới <br>
-                <input type="radio" id="radio3" name="status_book" value="0">Sách Cũ
+               <label for="radio1"><input type="radio" id="radio1" name="status_book" value="1">Sách Mới</label>  <br>
+               <label for="radio2"><input type="radio" id="radio2" name="status_book" value="0">Sách Cũ</label>  <br>
             </td>
         </tr>
         <tr>
@@ -35,7 +35,7 @@
             <th><label for="producer">Producer:</label></th>
             <td>
                 <select name="category" id="producer">
-                    <c:forEach items="${producer}" var="element">
+                    <c:forEach items="${listProducer}" var="element">
                         <option value="${element.id}">${element.name}</option>
                     </c:forEach>
                 </select>
@@ -45,7 +45,7 @@
             <th><label for="category">Category:</label></th>
             <td>
                 <select name="category" id="category">
-                    <c:forEach items="${category}" var="element">
+                    <c:forEach items="${listCategory}" var="element">
                         <option value="${element.id}">${element.name}</option>
                     </c:forEach>
                 </select>
@@ -55,7 +55,7 @@
             <th><label for="book_position">book_position:</label></th>
             <td>
                 <select name="category" id="book_position">
-                    <c:forEach items="${book_position}" var="element">
+                    <c:forEach items="${listBookPosition}" var="element">
                         <option value="${element.id}">${element.name}</option>
                     </c:forEach>
                 </select>
