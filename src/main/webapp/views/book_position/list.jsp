@@ -36,12 +36,9 @@
         <th>STATUS</th>
         <th>ACTION</th>
     </tr>
-<<<<<<< HEAD
-    <c:forEach var="element" items='${requestScope["listBookPosition"]}'>
-=======
+
     <!-- Nhận giá trị products từ servlet với biến transmitted: -->
     <c:forEach var="element" items='${requestScope["listBookPosition"]}' varStatus="STT">
->>>>>>> bookposition
         <tr>
             <td>${STT.index+1}</td>
             <td>${element.getName()}</td>
