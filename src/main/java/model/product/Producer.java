@@ -8,6 +8,10 @@ public class Producer {
     public Producer() {
     }
 
+    public Producer(String name) {
+        this.name = name;
+    }
+
     public Producer(String name, boolean status) {
         this.name = name;
         this.status = status;

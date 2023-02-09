@@ -19,7 +19,7 @@ public class ProducerDAO {
 
     private final String SELECT_ALL_PRODUCER = "select * from producer where status = true";
     private final String SELECT_PRODUCER_BY_ID = "select * from producer where id = ? and status = true";
-    private final String INSERT_PRODUCER = "insert into producer(name, status) value (?,?)";
+    private final String INSERT_PRODUCER = "insert into producer(name) value (?)";
     private final String UPDATE_PRODUCER = "update producer set name = ? where id = ?";
     private final String DELETE_PRODUCER = "update producer set status = false where id = ?";
 
@@ -50,7 +50,7 @@ public class ProducerDAO {
         return producer;
     }
 
-    public void create(Producer producer) {
+    public void insert(Producer producer) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PRODUCER)) {
             preparedStatement.setString(1, producer.getName());
             preparedStatement.executeUpdate();
