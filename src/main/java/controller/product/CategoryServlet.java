@@ -33,6 +33,9 @@ public class CategoryServlet extends HttpServlet {
             case "update":
                 updateForm(request, response);
                 break;
+            case "delete":
+                deleteForm(request, response);
+                break;
             default:
                 showListCategory(request, response);
         }
@@ -52,6 +55,9 @@ public class CategoryServlet extends HttpServlet {
                 break;
             case "update":
                 update(request, response);
+            case "delete":
+                delete(request, response);
+                break;
             default:
                 showListCategory(request, response);
         }
@@ -121,6 +127,31 @@ public class CategoryServlet extends HttpServlet {
             } catch (ServletException | IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void delete(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        categoryService.findById(id);
+        categoryService.delete(id);
+        try {
+            response.sendRedirect("/CategoryServlet");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void deleteForm(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Category category = categoryService.findById(id);
+        request.setAttribute("category", category);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/category/delete.jsp");
+        request.setAttribute("message2", "Delete successful");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
         }
     }
 

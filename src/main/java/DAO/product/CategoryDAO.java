@@ -69,4 +69,13 @@ public class CategoryDAO {
             a.printStackTrace();
         }
     }
+
+    public void delete(int id) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CATEGORY)){
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+        }catch (SQLException a){
+            a.printStackTrace();
+        }
+    }
 }
