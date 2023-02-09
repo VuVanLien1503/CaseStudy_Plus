@@ -1,13 +1,11 @@
 package controller.product;
 
-import model.product.Category;
 import service.IMPL.product.CategoryService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "CategoryServlet", value = "/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
@@ -39,13 +37,14 @@ public class CategoryServlet extends HttpServlet {
 
     private void showListCategory(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/category/list.jsp");
-        List<Category>list=categoryService.selectAll();
-        request.setAttribute("categories", list);
+        request.setAttribute("categories", categoryService.selectAll());
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
+
+
 
 }
