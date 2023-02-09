@@ -1,4 +1,6 @@
 package controller.product;
+
+import model.product.Producer;
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;
@@ -26,7 +28,7 @@ public class BookServlet extends HttpServlet {
         }
         switch (action) {
             case "create":
-                showCreate(request,response);
+                showCreate(request, response);
                 break;
             default:
                 showList(request, response);
@@ -39,6 +41,24 @@ public class BookServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("utf-8");
 
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                create(request, response);
+                break;
+        }
+
+    }
+
+    private void create(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String descriptions = request.getParameter("descriptions");
+        String image = request.getParameter("image");
+        String status_book=request.getParameter("status_book");
+        int quantity= Integer.parseInt(request.getParameter("quantity"));
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
@@ -50,6 +70,7 @@ public class BookServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private void showCreate(HttpServletRequest request, HttpServletResponse response) {
         request.setAttribute("listProducer", producerService.selectAll());
         request.setAttribute("listCategory", categoryService.selectAll());

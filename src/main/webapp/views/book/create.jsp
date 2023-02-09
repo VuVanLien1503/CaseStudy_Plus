@@ -34,7 +34,7 @@
         <tr>
             <th><label for="producer">Producer:</label></th>
             <td>
-                <select name="category" id="producer">
+                <select name="producer" id="producer">
                     <c:forEach items="${listProducer}" var="element">
                         <option value="${element.id}">${element.name}</option>
                     </c:forEach>
@@ -54,7 +54,7 @@
         <tr>
             <th><label for="book_position">book_position:</label></th>
             <td>
-                <select name="category" id="book_position">
+                <select name="book_position" id="book_position">
                     <c:forEach items="${listBookPosition}" var="element">
                         <option value="${element.id}">${element.name}</option>
                     </c:forEach>
