@@ -17,6 +17,9 @@ public class CategoryService implements ICrud<Category> {
     public List<Category> selectAll() {
         return categoryDAO.selectAll();
     }
+    public Category findById(int id){
+        return categoryDAO.findById(id);
+    }
 
     @Override
     public void insert(Category category) {
@@ -30,6 +33,6 @@ public class CategoryService implements ICrud<Category> {
 
     @Override
     public void update(Category category) {
-
+        categoryDAO.update(category);
     }
 }
