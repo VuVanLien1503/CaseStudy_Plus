@@ -50,6 +50,10 @@
         </td>
     </tr>
     </c:forEach>
+    </table>
+<form>
+    <a href="/BookServlet"><button type="button">Back Home</button></a>
+</form>
 
 </body>
 </html>
