@@ -14,6 +14,7 @@ public class CategoryDAO {
     private final Connection connection;
     private final String SELECT_ALL_CATEGORY = "select * from category where status = true";
     private final String INSERT_CATEGORY = "insert into category(name) value(?)";
+    private final String SELECT_CATEGORY_BY_ID = "select * from category where id = ?";
     private final String UPDATE_CATEGORY = "update category set name = ? where id = ?";
     private final String DELETE_CATEGORY = "update category set status = false where id = ?";
     private int id;
@@ -34,13 +35,37 @@ public class CategoryDAO {
         }
         return categories;
     }
-    public void insert(Category category){
-        try(PreparedStatement preparedStatement=connection.prepareStatement(INSERT_CATEGORY)){
-            preparedStatement.setString(1,category.getName());
+
+    public Category findById(int id) {
+        Category category = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_CATEGORY_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                category = new Category(resultSet.getString("name"));
+            }
+        }catch (SQLException a){
+            a.printStackTrace();
+        }
+        return category;
+    }
+
+    public void insert(Category category) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CATEGORY)) {
+            preparedStatement.setString(1, category.getName());
             preparedStatement.executeUpdate();
-        }catch(SQLException a){
+        } catch (SQLException a) {
             a.printStackTrace();
         }
     }
 
+    public void update(Category category) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY)){
+            preparedStatement.setString(1,category.getName());
+            preparedStatement.setInt(2,category.getId());
+            preparedStatement.executeUpdate();
+        }catch (SQLException a){
+            a.printStackTrace();
+        }
+    }
 }
