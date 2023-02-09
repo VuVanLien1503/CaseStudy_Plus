@@ -2,6 +2,7 @@ package controller.product;
 
 import model.product.Category;
 import service.IMPL.product.CategoryService;
+import service.MyRegex;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -11,6 +12,7 @@ import java.io.IOException;
 @WebServlet(name = "CategoryServlet", value = "/CategoryServlet")
 public class CategoryServlet extends HttpServlet {
     private final CategoryService categoryService;
+    public MyRegex myRegex = new MyRegex();
 
     public CategoryServlet() {
         categoryService = new CategoryService();
@@ -54,6 +56,7 @@ public class CategoryServlet extends HttpServlet {
                 showListCategory(request, response);
         }
     }
+
     private void showListCategory(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/category/list.jsp");
         request.setAttribute("categories", categoryService.selectAll());
@@ -93,16 +96,32 @@ public class CategoryServlet extends HttpServlet {
             e.printStackTrace();
         }
     }
+
     private void update(HttpServletRequest request, HttpServletResponse response) {
-        String name = request.getParameter("name");
+        RequestDispatcher dispatcher = null;
         int id = Integer.parseInt(request.getParameter("id"));
-        categoryService.update(new Category(id,name));
-        try {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("views/category/list.jsp");
+        String name = request.getParameter("name");
+        if (myRegex.regex(name, myRegex.getPatternName())) {
+            categoryService.update(new Category(id, name));
+            try {
+                dispatcher = request.getRequestDispatcher("views/category/list.jsp");
+                request.setAttribute("categories", categoryService.selectAll());
+                request.setAttribute("message1", "Update Successful");
+
+                dispatcher.forward(request, response);
+            } catch (IOException | ServletException e) {
+                e.printStackTrace();
+            }
+        } else {
+            dispatcher = request.getRequestDispatcher("views/category/list.jsp");
             request.setAttribute("categories", categoryService.selectAll());
-            dispatcher.forward(request, response);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
+            request.setAttribute("message", "Wrong name format");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
+
 }
