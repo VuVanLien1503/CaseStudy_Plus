@@ -35,6 +35,9 @@ public class BookPositionServlet extends HttpServlet {
             case "delete":
                 showDeleteForm(request,response);
                 break;
+            case  "views":
+                showPosition(request,response);
+                break;
             default:
                 listBookPosition(request,response);
                 break;
@@ -178,6 +181,17 @@ public class BookPositionServlet extends HttpServlet {
         try {
             response.sendRedirect("/BookPositionServlet");
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void showPosition(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        BookPosition bookPosition = bookPositionService.selectById(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/detail.jsp");
+        request.setAttribute("views",bookPosition);
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
