@@ -13,11 +13,12 @@ import java.util.Map;
 
 @WebServlet(name = "BookPositionServlet", value = "/BookPositionServlet")
 public class BookPositionServlet extends HttpServlet {
-    MyRegex myRegex= new MyRegex();
+    private final  MyRegex myRegex;
     private final BookPositionService bookPositionService;
 
     public BookPositionServlet() {
         bookPositionService = new BookPositionService();
+        myRegex = new MyRegex();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -105,10 +106,8 @@ public class BookPositionServlet extends HttpServlet {
             request.setAttribute("error", "New creation failed. Review");
             try {
                 dispatcher.forward(request, response);
-            } catch (ServletException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
             }
         } else {
             try {
@@ -135,29 +134,34 @@ public class BookPositionServlet extends HttpServlet {
         }
     }
     private void updatePosition(HttpServletRequest request, HttpServletResponse response){
-        try {
+        BookPosition bookPosition = null;
+        RequestDispatcher dispatcher;
             int id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
             String position = request.getParameter("position");
-            BookPosition bookPosition = new BookPosition(id,name,position);
-            bookPositionService.update(bookPosition);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
-            request.setAttribute("message","Update successful!");
-            try {
-                dispatcher.forward(request,response);
-            } catch (ServletException | IOException e) {
-                e.printStackTrace();
+            boolean regexName = myRegex.regex(name,myRegex.getPatternName());
+            boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
+            if (regexName&regexPosition){
+                bookPosition = new BookPosition(id,name,position);
+                bookPositionService.update(bookPosition);
             }
-        }catch (NumberFormatException e){
-            e.printStackTrace();
-            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
-            request.setAttribute("error","New creation failed. Review");
-            try {
-                dispatcher.forward(request,response);
-            } catch (ServletException | IOException ex) {
-                ex.printStackTrace();
+            if (bookPosition == null){
+                dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
+                request.setAttribute("error", "New creation failed. Review");
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
+                request.setAttribute("message","Update successful!");
+                try {
+                    dispatcher.forward(request,response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
-    }
 }

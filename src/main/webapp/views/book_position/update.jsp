@@ -10,6 +10,11 @@
         color:green;
     }
 </style>
+<style>
+    .error{
+        color:red;
+    }
+</style>
 <body>
 <h1>UPDATE BOOK POSITION</h1>
 <p>
