@@ -17,6 +17,11 @@ public class Producer {
         this.status = status;
     }
 
+    public Producer(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Producer(int id, String name, boolean status) {
         this.id = id;
         this.name = name;

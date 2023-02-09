@@ -32,7 +32,7 @@ public class ProducerServlet extends HttpServlet {
                 case "create":
                     showCreateForm(request, response);
                     break;
-                case "edit":
+                case "update":
                     showEditForm(request, response);
                     break;
                 case "delete":
@@ -82,9 +82,12 @@ public class ProducerServlet extends HttpServlet {
     private void update(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        producerService.update(new Producer(id, name, true));
-        response.sendRedirect("/ProducerServlet");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/create.jsp");
+        producerService.update(new Producer(id,name));
+        try {
+            response.sendRedirect("/ProducerServlet");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -108,9 +111,13 @@ public class ProducerServlet extends HttpServlet {
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/edit.jsp");
         request.setAttribute("producer", producerService.selectById(id));
-        dispatcher.forward(request, response);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/producer/update.jsp");
+        try {
+            dispatcher.forward(request,response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
