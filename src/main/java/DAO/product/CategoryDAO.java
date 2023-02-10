@@ -17,8 +17,6 @@ public class CategoryDAO {
     private final String SELECT_CATEGORY_BY_ID = "select * from category where id = ?";
     private final String UPDATE_CATEGORY = "update category set name = ? where id = ?";
     private final String DELETE_CATEGORY = "update category set status = false where id = ?";
-    private int id;
-
     public CategoryDAO() {
         connection = MyConnection.getConnection();
     }
