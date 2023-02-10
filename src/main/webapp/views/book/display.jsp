@@ -26,32 +26,42 @@
     <button><a href="/ProducerServlet">ProducerServlet></a></button>
   </div>
 </div>
-</table>
-<table border="1" style="border-collapse: collapse;margin-top: 20px">
-  <tr>
-    <th>STT</th>
-    <th>name</th>
-    <th>descriptions</th>
-    <th>image</th>
-    <th>status_book</th>
-    <th>quantity</th>
-    <th>producer_id</th>
-    <th>category_id</th>
-    <th>book_position</th>
-  </tr>
-  <c:forEach items="${listBooks}" var="element" varStatus="stt">
-    <tr>
-    <td>${stt.index+1}</td>
-    <td>${element.name}</td>
-    <td>${element.descriptions}</td>
-    <td><img src="${element.image}" alt="error" style="width: 100px;height: 120px"></td>
-    <td>${element.status_book}</td>
-    <td>${element.quantity}</td>
-    <td>${element.producer_id}</td>
-    <td>${element.category_id}</td>
-    <td>${element.book_position}</td>
-    </tr>
-  </c:forEach>
-</table>
+<div>
+    <table border="1" style="border-collapse: collapse;margin-top: 20px">
+      <tr>
+        <th>STT</th>
+        <th>name</th>
+        <th>descriptions</th>
+        <th>image</th>
+        <th>status_book</th>
+        <th>quantity</th>
+        <th>producer_id</th>
+        <th>category_id</th>
+        <th>book_position</th>
+      </tr>
+      <c:forEach items="${listBooks}" var="element" varStatus="stt">
+        <tr>
+          <td>${stt.index+1}</td>
+          <td><b>${element.name}</b></td>
+          <td><sub>${element.descriptions}</sub></td>
+          <td><img src="${element.image}" alt="error" style="width: 100px;height: 120px"></td>
+          <td>
+            <c:choose>
+              <c:when test="${element.status_book ==true}">
+                <i>Sách Mới</i>
+              </c:when>
+              <c:otherwise>
+                <i>Sách Cũ</i>
+              </c:otherwise>
+            </c:choose>
+          </td>
+          <td>${element.quantity}</td>
+          <td>${element.producer_id}</td>
+          <td>${element.category_id}</td>
+          <td>${element.book_position}</td>
+        </tr>
+      </c:forEach>
+    </table>
+</div>
 </body>
 </html>

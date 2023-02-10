@@ -1,5 +1,8 @@
 package controller.product;
 
+import model.product.Book;
+import model.product.BookPosition;
+import model.product.Category;
 import model.product.Producer;
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
@@ -54,11 +57,22 @@ public class BookServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) {
+        String path="../../image/imageBook/lapTrinh/";
         String name = request.getParameter("name");
         String descriptions = request.getParameter("descriptions");
-        String image = request.getParameter("image");
-        String status_book=request.getParameter("status_book");
+        String image = path+request.getParameter("imagePath");
+        boolean status_book= Boolean.parseBoolean(request.getParameter("status_book"));
         int quantity= Integer.parseInt(request.getParameter("quantity"));
+        int producer_id= Integer.parseInt(request.getParameter("producer"));
+        int category_id = Integer.parseInt(request.getParameter("category"));
+        int book_position = Integer.parseInt(request.getParameter("book_position"));
+        Book book=new Book(name,descriptions,image,status_book,quantity,producer_id,category_id,book_position);
+        bookService.update(book);
+        try {
+            response.sendRedirect("/BookServlet");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {

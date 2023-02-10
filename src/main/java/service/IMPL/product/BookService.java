@@ -1,4 +1,5 @@
 package service.IMPL.product;
+
 import DAO.product.BookDAO;
 import model.product.Book;
 import service.myinterface.ICrud;
@@ -15,8 +16,9 @@ public class BookService implements ICrud<Book> {
 
     @Override
     public List<Book> selectAll() {
-       return bookDAO.findAll();
+        return bookDAO.findAll();
     }
+
     @Override
     public void insert(Book book) {
     }
@@ -28,6 +30,6 @@ public class BookService implements ICrud<Book> {
 
     @Override
     public void update(Book book) {
-
+        bookDAO.create(book);
     }
 }

@@ -8,7 +8,7 @@ public class MyRegex {
     private String patternName = "[a-zA-Z0-9_-]{3,15}$";
     private String patternText = "[a-zA-Z0-9\\d]{4,60}$";
     private String patternPhone = "^[0][0-9]{9}$";
-    private String patternPassWord = "^[a-zA-Z0-9]{4,15}$";
+    private String patternPassWord = "^[a-zA-Z0-9]{6,15}$";
     private String patternNumber="[0-9]+$";
     private String patternDouble="^[0-9.]+$";
 
