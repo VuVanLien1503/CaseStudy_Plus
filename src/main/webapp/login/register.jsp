@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +18,7 @@
   <div class="flex-grid">
     <div class="login-half left">
       <div class="login-area">
-        <form class="login-form top-label-form" action="/login" method="post">
+        <form class="login-form top-label-form" action="/UsersServlet?action=create" method="post">
           <div id="login-name" class="field">
             <label for="login-email-field"> Name</label>
             <input type="text" name="name" id="login-name-field">
@@ -25,20 +27,29 @@
             <label for="login-email-field"> Email</label>
             <input type="text" name="email" id="login-email-field">
           </div>
+          <div >
+            <c:if test='${requestScope["error-email"] != null}'>
+              <span class="error" style="color: red">${requestScope["error-email"]}</span>
+            </c:if>
+          </div>
           <div id="login-password" class="field">
             <label for="login-password-field">Password</label>
             <input type="password" name="password" id="login-password-field">
           </div>
-          <div id="login-error"></div>
+          <div id="login-passwordConfirm" class="field">
+            <label for="login-password-field">Confirm</label>
+            <input type="password" name="passwordConfirm" id="login-passwordConfirm-field">
+          </div>
+          <div >
+            <c:if test='${requestScope["error-password"] != null}'>
+              <span class="error" style="color: red">${requestScope["error-password"]}</span>
+            </c:if>
+          </div>
           <div>
-            <button id="log-in-button" class="recaptcha-trigger-button button green action-button expand-right">
+            <button id="log-in-button" class="recaptcha-trigger-button button green action-button expand-right" type="submit">
               <span class="label">Register</span>
               <span class="spinner"></span>
             </button>
-            &nbsp;&nbsp;
-            <a href="#" id="forgot-password-link" class="forgot-password-link">
-              Forgot Password?
-            </a>
           </div>
         </form>
         <form class="module login-form top-label-form" id="forgot-password-form" action="#0">

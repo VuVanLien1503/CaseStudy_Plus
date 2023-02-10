@@ -16,6 +16,7 @@ public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPos
 
     @Override
     public List<BookPosition> selectAll() {
+
         return bookPositionDAO.selectAll();
     }
 
@@ -36,6 +37,7 @@ public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPos
 
     @Override
     public BookPosition selectById(int id) {
+
         return bookPositionDAO.findById(id);
     }
 
