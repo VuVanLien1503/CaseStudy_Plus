@@ -61,7 +61,7 @@ public class BookServlet extends HttpServlet {
         String name = request.getParameter("name");
         String descriptions = request.getParameter("descriptions");
         String image = path+request.getParameter("imagePath");
-        boolean status_book= request.getParameter("status_book").isEmpty();
+        boolean status_book= Boolean.parseBoolean(request.getParameter("status_book"));
         int quantity= Integer.parseInt(request.getParameter("quantity"));
         int producer_id= Integer.parseInt(request.getParameter("producer"));
         int category_id = Integer.parseInt(request.getParameter("category"));
