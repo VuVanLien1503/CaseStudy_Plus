@@ -32,65 +32,112 @@
 
 </script>
 <body>
-<div class="header">
-    <img name="myimage" src="${path}.png" class="imgHot"/>
-</div>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/BookServlet"><span style="color: #14ee0c">List-All</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/CategoryServlet"><span style="color: #ea0a46">CategoryServlet</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ProducerServlet"><span style="color: #ac0fe0">ProducerServlet</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/BookPositionServlet"><span style="color: #e0b60f">BookPositionServlet</span></a>
-                </li>
-                <form class="d-flex" style="margin-left: 100px;margin-bottom: 0px">
-                    <input class="form-control me-2" type="text" placeholder="Search By Category">
-                    <button class="btn btn-primary" type="button">Search</button>
-                </form>
-            </ul>
 
-        </div>
-        <c:choose>
-            <c:when test="${Name_User==null}">
-                <span style="color: palegreen;margin-right: 30px">Name_User</span>
-            </c:when>
-            <c:otherwise>
-                <span style="color: palegreen;margin-right: 30px">${Name_User}</span>
-            </c:otherwise>
-        </c:choose>
-        <a class="navbar-brand" href="#">
-            <img src="../image/imageUser/user_1.png" alt="lol" style="width:40px;height: 40px" class="rounded-pill">
-        </a>
+<div style="background-color: rgba(42,231,13,0.1)">
+    <div class="header">
+        <img name="myimage" src="${path}.png" class="imgHot"/>
     </div>
-</nav>
-<div class="container">
-    <div class="column middle">
-        <div class="colum-show">
-            <div>
-                <table>
-                    <div class="row">
-                        <c:forEach items="${listBooks}" var="element">
-                            <div class="card col-lg-4" style="width: 18rem; margin: 15px">
-                                <img src="${element.image}" class="card-img-top" alt="error"
-                                     style="width: 200px;height: 200px">
-                                <div class="card-body">
-                                    <h5 class="card-title">${element.name}</h5>
-                                    <p class="card-text"></p>
-                                    <a href="/BookServlet?action=detail$id=${element.id}" class="btn btn-primary">Detail</a>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <c:choose>
+                            <c:when test="${Name_User==null}">
+                                <a class="nav-link" href="#">
+                                    <span style="color: #14ee0c">List-Detail</span></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="nav-link" href="/BookServlet">
+                                    <span style="color: #14ee0c">List-Detail</span></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li class="nav-item">
+                        <c:choose>
+                            <c:when test="${Name_User==null}">
+                                <a class="nav-link" href="#">
+                                    <span style="color: #ea0a46">CategoryServlet</span></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="nav-link" href="/CategoryServlet">
+                                    <span style="color: #ea0a46">CategoryServlet</span></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li class="nav-item">
+                        <c:choose>
+                            <c:when test="${Name_User==null}">
+                                <a class="nav-link" href="#">
+                                    <span style="color: #ac0fe0">ProducerServlet</span></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="nav-link" href="/ProducerServlet">
+                                    <span style="color: #ac0fe0">ProducerServlet</span></a>
+                            </c:otherwise>
+                        </c:choose>
 
-                </table>
+                    </li>
+                    <li class="nav-item">
+                        <c:choose>
+                            <c:when test="${Name_User==null}">
+                                <a class="nav-link" href="#">
+                                    <span style="color: #e0b60f">BookPositionServlet</span></a>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="nav-link" href="/BookPositionServlet">
+                                    <span style="color: #e0b60f">BookPositionServlet</span></a>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <form class="d-flex" style="margin-left: 100px;margin-bottom: 0px">
+                        <input class="form-control me-2" type="text" placeholder="Search By Category">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </form>
+                </ul>
+
+            </div>
+            <c:choose>
+                <c:when test="${Name_User==null}">
+                    <span style="color: palegreen;margin-right: 30px"><a href="/login/login.jsp">Đăng Nhập</a></span>
+                </c:when>
+                <c:otherwise>
+                    <span style="color: palegreen;margin-right: 30px">${Name_User}</span>
+                </c:otherwise>
+            </c:choose>
+            <a class="navbar-brand" href="#">
+                <img src="../image/imageUser/user_1.png" alt="lol" style="width:40px;height: 40px" class="rounded-pill">
+            </a>
+        </div>
+    </nav>
+    <div class="container" style="margin-left: 122px">
+        <div class="column middle">
+            <div class="colum-show">
+                <div>
+                    <table>
+                        <div class="row">
+                            <c:forEach items="${listBooks}" var="element">
+                                <div class="container col-md-4"style="width: 18rem; margin: 15px">
+                                    <img src="${element.image}" class="card-img-top" alt="error"
+                                         style="width: 250px;height: 300px">
+                                    <div class="card-body" style="text-align: center">
+                                        <h5 style="margin-top: 10px;color: #ee940c" class="card-title">${element.name}</h5>
+                                        <p class="card-text"></p>
+                                        <c:choose>
+                                            <c:when test="${Name_User==null}">
+                                                <span class="btn btn-primary">Detail</span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="/BookServlet?action=detail$id=${element.id} " class="btn btn-primary" >Detail</a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -122,7 +169,7 @@
                 </a>
             </div>
         </section>
-        <section class="">
+        <section class="content">
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
