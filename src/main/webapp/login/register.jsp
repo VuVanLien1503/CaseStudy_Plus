@@ -10,6 +10,9 @@
   <link rel="stylesheet" media="all" href="https://cpwebassets.codepen.io/assets/page/page-345d2661188ccfb81d8d25dc1f6081b1116e59e3b4e5eb5955e430d5ac0b787a.css">
   <link rel="stylesheet" media="screen" href="https://cpwebassets.codepen.io/assets/accounts/form-776ea921c2b1e16b31b143a01c75e69304b29401d144d89a624cdeabf7ed9749.css">
 </head>
+<style>
+
+</style>
 <body class="body-login logged-out not-team" data-sidebar-collapsed="false" data-mobile-nav-open="false">
 <div class="login-wrap">
   <header class="login-header">
@@ -52,6 +55,13 @@
             </button>
           </div>
         </form>
+        <div>
+          <a href="/BookPositionServlet">
+            <button  class="recaptcha-trigger-button button red action-button expand-right">
+              <span class="label"><<< Back</span>
+              <span class="spinner"></span>
+            </button></a>
+        </div>
         <form class="module login-form top-label-form" id="forgot-password-form" action="#0">
           <h3>Reset Your Password</h3>
           <div class="field">
@@ -74,7 +84,7 @@
     </div>
     <div class="login-half right">
       <div>
-        <img src="../image/imageBook/lapTrinh/Sach_Lap_Trinh_1.png" alt="error" style="width: 500px;height: 400px;background: red">
+        <img src="https://cf.shopee.vn/file/9f1ce36e753e6bc87fbec5abcb52a0af_tn" alt="error" style="width: 500px;height: 400px;background: red">
       </div>
     </div>
   </div>
