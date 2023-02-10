@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<%--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>--%>
-<%--    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>--%>
+    <link rel="stylesheet" href="display.css">
 </head>
 <style>
     * {
@@ -93,6 +92,14 @@
         background: url('https://toigingiuvedep.vn/wp-content/uploads/2022/11/anh-nen-ke-sach-doc-dao.jpg') no-repeat center center/cover;;
     }
     section#contact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        height: 20vh;
+        scroll-snap-align: center;
         background: url('https://source.unsplash.com/2aAHlfDOhJM/1600x900') no-repeat center center/cover;;
     }
     body {
@@ -171,7 +178,7 @@
         color: #FFC107;
     }
     table.table td i {
-        font-size: 30px;
+        font-size: 25px;
     }
 </style>
 <body>
@@ -187,7 +194,7 @@
             </ul>
         </nav>
     <section id="home">
-        <h1>Welcome To The Place For Books </h1>
+        <h1 style="color: #0f7ee0; font-size:70px"><b>Welcome To The Place For Books </b></h1>
     </section>
     <section id="service">
         <div class="table-wrapper">
@@ -201,8 +208,8 @@
                     <th>QUANTITY</th>
                     <th>POSITION</th>
                     <th>QUANTITY NOW</th>
-                    <th>STATUS</th>
-                    <th>ACTION</th>
+                    <th>AMOUNT</th>
+                    <th colspan="2" style="text-align: center">ACTION</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -213,9 +220,11 @@
                         <td>${element.getQuantity()}</td>
                         <td>${element.getPosition()}</td>
                         <td>${element.getQuantityNow()}</td>
-                        <td>${element.isStatus()}</td>
-                        <td colspan="2">
+                        <td>${element.getQuantity() - element.getQuantityNow()}</td>
+                        <td>
                             <a href="/BookPositionServlet?action=update&id=${element.getId()}" class="edit" data-toggle="modal"><button type="button>" class="btn btn-primary">Update</button> </a>
+                        </td>
+                        <td>
                             <a href="/BookPositionServlet?action=delete&id=${element.getId()}"><button type="button"class="btn btn-danger">Delete</button> </a>
                         </td>
                     </tr>
