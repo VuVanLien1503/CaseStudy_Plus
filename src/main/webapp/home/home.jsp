@@ -18,7 +18,7 @@
   .header {
     background: rgba(255, 255, 255, 0.71);
     /*width: 150px;*/
-    height: 300px;
+    height: 400px;
     color: #58257b;
   }
   .topnav {
@@ -66,7 +66,7 @@
   }
   .imgHot {
     width: 100%;
-    height: 300px;
+    height: 400px;
   }
   .colum-sell{
     position: sticky;
@@ -118,7 +118,7 @@
 
 
     <div id="loginShow">
-      <a href="#" style="float: right" id="login">login
+      <a href="/login/login.jsp" style="float: right" id="login">login
         <i class="fa fa-fw fa-user"></i>
       </a>
 
@@ -156,8 +156,6 @@
       </div>
     </div>
   </div>
-
-
   <div class="footer">
     <footer class="text-center text-lg-start bg-light text-muted">
       <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -259,7 +257,6 @@
     </footer>
 
   </div>
-
 </div>
 </body>
 </html>
