@@ -12,11 +12,13 @@ import java.io.IOException;
 @WebServlet(name = "UsersServlet", value = "/UsersServlet")
 public class UsersServlet extends HttpServlet {
     private final MyRegex myRegex;
-    private  final UsersService usersService;
-    public UsersServlet(){
+    private final UsersService usersService;
+
+    public UsersServlet() {
         myRegex = new MyRegex();
         usersService = new UsersService();
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -34,7 +36,7 @@ public class UsersServlet extends HttpServlet {
             case "delete":
 
                 break;
-            case  "views":
+            case "views":
 
                 break;
             default:
@@ -53,8 +55,11 @@ public class UsersServlet extends HttpServlet {
         }
 
         switch (action) {
+            case "login":
+                login(request, response);
+                break;
             case "create":
-                createUsers(request,response);
+                createUsers(request, response);
                 break;
             case "update":
 
@@ -62,7 +67,7 @@ public class UsersServlet extends HttpServlet {
             case "delete":
 
                 break;
-            case  "views":
+            case "views":
 
                 break;
             default:
@@ -70,46 +75,110 @@ public class UsersServlet extends HttpServlet {
                 break;
         }
     }
-    private void register(HttpServletResponse response){
+
+    private void login(HttpServletRequest request, HttpServletResponse response) {
+        boolean check = false;
+        boolean checkEmail = false;
+        Users users = null;
+        RequestDispatcher dispatcher;
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        boolean regexEmail = myRegex.regex(email, myRegex.getPatternEmail());
+        if (regexEmail) {
+            for (Users u : usersService.selectAll()) {
+                if (u.getEmail().equals(email)) {
+                    if (u.getPassword().equals(password)) {
+                        check = true;
+                        users = u;
+                        break;
+                    } else {
+                        checkEmail = true;
+                        break;
+                    }
+                } else {
+                    check=false;
+                }
+            }
+        } else {
+            request.setAttribute("error-email", "Email invalidate");
+            dispatcher = request.getRequestDispatcher("login/login.jsp");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+        if (check) {
+            request.getSession().setAttribute("objectName", users);
+            dispatcher = request.getRequestDispatcher("/HomeServlet?action=loginCheck");
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            if (checkEmail){
+                request.setAttribute("error-password", "Mật Khẩu Không Đúng ");
+                dispatcher = request.getRequestDispatcher("login/login.jsp");
+                try {
+                    dispatcher.forward(request,response);
+                } catch (ServletException |IOException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                request.setAttribute("error-email", "Email Không Tồn Tại");
+                dispatcher = request.getRequestDispatcher("login/login.jsp");
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void register(HttpServletResponse response) {
         try {
             response.sendRedirect("login/register.jsp");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    private void createUsers(HttpServletRequest request, HttpServletResponse response){
+
+    private void createUsers(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher = null;
         Users users = null;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String passwordConfirm =request.getParameter("passwordConfirm");
+        String passwordConfirm = request.getParameter("passwordConfirm");
         boolean regexName = myRegex.regex(name, myRegex.getPatternName());
         boolean regexEmail = myRegex.regex(email, myRegex.getPatternEmail());
         boolean regexPassword = myRegex.regex(password, myRegex.getPatternPassWord());
         boolean regexPasswordConfirm = myRegex.regex(passwordConfirm, myRegex.getPatternPassWord());
         boolean flag = false;
-        if (regexName&regexEmail&regexPassword&regexPasswordConfirm){
+        if (regexName & regexEmail & regexPassword & regexPasswordConfirm) {
             for (Users e : usersService.selectAll()) {
-                if (e.getEmail().equals(email) | !password.equals(passwordConfirm)){
-                    flag =false;
+                if (e.getEmail().equals(email) | !password.equals(passwordConfirm)) {
+                    flag = false;
                     break;
-                }else {
-                    flag =true;
+                } else {
+                    flag = true;
                 }
             }
         }
-        if (flag){
-            users = new Users(name,email,password);
+        if (flag) {
+            users = new Users(name, email, password);
             usersService.insert(users);
         }
-        if (users ==null){
+        if (users == null) {
             for (Users e : usersService.selectAll()) {
                 if (e.getEmail().equals(email)) {
                     dispatcher = request.getRequestDispatcher("login/register.jsp");
                     request.setAttribute("error-email", "Email already exists or is formatted incorrectly.Check again!");
                     try {
-                        dispatcher.forward(request,response);
+                        dispatcher.forward(request, response);
                     } catch (ServletException | IOException ex) {
                         ex.printStackTrace();
                     }
@@ -120,12 +189,12 @@ public class UsersServlet extends HttpServlet {
                 dispatcher = request.getRequestDispatcher("login/register.jsp");
                 request.setAttribute("error-password", "Passwords do not match or contain special characters.");
                 try {
-                    dispatcher.forward(request,response);
+                    dispatcher.forward(request, response);
                 } catch (ServletException | IOException e) {
                     e.printStackTrace();
                 }
             }
-        }else {
+        } else {
             try {
                 response.sendRedirect("/BookPositionServlet");
             } catch (IOException e) {

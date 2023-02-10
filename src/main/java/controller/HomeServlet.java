@@ -1,5 +1,6 @@
 package controller;
 
+import model.user.Users;
 import service.IMPL.product.BookService;
 
 import javax.servlet.*;
@@ -13,7 +14,18 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        showList(request, response);
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "loginCheck":
+                response.sendRedirect("/HomeServlet");
+                break;
+            default:
+                showList(request, response);
+                break;
+        }
 
     }
 
@@ -23,10 +35,14 @@ public class HomeServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-        String path="home/img/img_";
-        request.setAttribute("path",path);
+        Users users = null;
+        users = (Users) request.getSession().getAttribute("objectName");
+        String path = "home/img/img_";
+        request.setAttribute("path", path);
         request.setAttribute("listBooks", bookService.selectAll());
-        RequestDispatcher dispatcher=request.getRequestDispatcher("home/home.jsp");
+        request.setAttribute("Name_User", users);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("home/home.jsp");
+
 
         try {
             dispatcher.forward(request, response);

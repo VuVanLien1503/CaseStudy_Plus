@@ -102,7 +102,7 @@
                     <span style="color: palegreen;margin-right: 30px"><a href="/login/login.jsp">Đăng Nhập</a></span>
                 </c:when>
                 <c:otherwise>
-                    <span style="color: palegreen;margin-right: 30px">${Name_User}</span>
+                    <span style="color: palegreen;margin-right: 30px">${Name_User.name}</span>
                 </c:otherwise>
             </c:choose>
             <a class="navbar-brand" href="#">
