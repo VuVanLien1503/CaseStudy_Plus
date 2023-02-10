@@ -331,36 +331,8 @@
                 © 2022-11-20
                 <a class="text-reset fw-bold" href="https://online.codegym.vn/">CodeGym-HN</a>
             </div>
-
         </footer>
-
     </div>
-
-<h1>UPDATE PRODUCER</h1>
-    <p>
-        <c:if test='${requestScope["message"] != null}'>
-            <div style="background-color: palevioletred">
-            <span class="message">${requestScope["message"]}</span>
-           </div>
-        </c:if>
-
     </div>
-<%--<form action="ProducerServlet?action=update&id=${producer.id}" method="post">--%>
-<%--    <fieldset style="width: 20%">--%>
-<%--        <legend>Book Producer Information</legend>--%>
-<%--        <table>--%>
-<%--            <tr>--%>
-<%--                <td>Name</td>--%>
-<%--                <td><input type="text" name="name" id="name" value="${producer.name}"></td>--%>
-<%--            </tr>--%>
-<%--            <tr>--%>
-<%--                <td colspan="2">--%>
-<%--                    <button type="submit">Create</button>--%>
-<%--                    <a href="/ProducerServlet"><button type="button">Back to home</button></a>--%>
-<%--                </td>--%>
-<%--            </tr>--%>
-<%--        </table>--%>
-<%--    </fieldset>--%>
-<%--</form>--%>
 </body>
 </html>
