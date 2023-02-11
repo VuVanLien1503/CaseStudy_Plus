@@ -30,7 +30,7 @@ public class CategoryServlet extends HttpServlet {
             case "insert":
                 insertForm(request, response);
                 break;
-            case "update":
+            case "edit":
                 updateForm(request, response);
                 break;
             case "delete":

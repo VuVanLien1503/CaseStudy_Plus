@@ -1,41 +1,71 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Insert Category</title>
-    <style>
-        .footer2 {
-            background-color: rgba(212, 197, 222, 0.42);
-            text-align: center;
-            padding-top: 10px;
-        }
-    </style>
-</head>
-<body style="background-image:url('https://img.freepik.com/free-photo/wooden-table-with-blurred-background_1134-14.jpg?w=826&t=st=1676021833~exp=1676022433~hmac=295542dd4427e03888a7f4e9585fe7c6b24fedcdb08c969abf112e2da826b62c');">
-<fieldset
-        style="display: flex; justify-content: center ; width: 20% ; margin-left: 550px;margin-top: 200px;background-color: antiquewhite">
-    <div style="text-align: center">
-        <h1>Create Form</h1>
-        <form action="/CategoryServlet?action=insert" methlkod="post">
-            <div class="form-group" style="margin-bottom: 10px">
-                <tr>
-                    <label for="name">Name: </label>
-                    <input type="text" class="form-group" name="name" id="name">
-                </tr>
-            </div>
-            <tr>
-                <td colspan="2">
-                    <button type="submit" class="btn btn-primary">Insert</button>
-                    <a href="/CategoryServlet" style="text-decoration: none">
-                        <button type="button" class="btn btn-primary">Back to list category</button>
-                    </a>
-                </td>
-            </tr>
-        </form>
-    </div>
-</fieldset>
+    <title>List Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
+    <link rel="stylesheet" href="/home/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<div class="footer1">
+</head>
+<script type="text/javascript">
+    let current = 0;
+    let numIMG = 4;
+
+    function switchImage() {
+        current++;
+        document.images['myimage'].src = 'home/img/img_' + current + '.png';
+        if (current <= numIMG) {
+            setTimeout("switchImage()", 2000);
+        } else {
+            current = 0;
+            setTimeout("switchImage()", 2000);
+        }
+    }
+
+    setTimeout("switchImage()", 2000);
+
+
+</script>
+<body>
+<div style="background-color: rgba(234,192,192,0.29)">
+    <div class="header">
+        <img name="myimage" src="home/img/img_3.png" class="imgHot"/>
+    </div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item" style="margin-left: 500px">
+                        <a class="nav-link" href="/HomeServlet">
+                            <h3 style="color: red"><i>Back To Home</i></h3></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    <div style="margin-left: 450px;margin-top: 50px">
+
+        <div class="container col-md-4" style="width: 18rem; margin: 15px">
+            <div class="card-body" style="text-align: center">
+                <form action="/CategoryServlet?action=insert">
+
+                    <h3 style="margin: 10px"><input type="text"name="name"placeholder="Enter Name Category"></h3>
+                    <button style="margin: 10px"><i style="color: blue">CREATE</i></button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="footer">
     <footer class="text-center text-lg-start bg-light text-muted">
         <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
             <div class="me-5 d-none d-lg-block">
@@ -62,7 +92,7 @@
                 </a>
             </div>
         </section>
-        <section class="">
+        <section class="content">
             <div class="container text-center text-md-start mt-5">
                 <div class="row mt-3">
                     <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
@@ -72,7 +102,9 @@
                         <p>
                             Công ty CP CodeGym Việt Nam - MST: 010 810 4526<br><br><br>
 
-                            Đ/c: Căn hộ TT01.23 dự án Hải Đăng city, phường Mỹ Đình 2, quận Nam Từ Liêm, thành phố Hà Nội
+                            Đ/c: Căn hộ TT01.23 dự án Hải Đăng city, phường Mỹ Đình 2, quận Nam Từ Liêm, thành
+                            phố
+                            Hà Nội
                         </p>
                     </div>
                     <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
@@ -102,10 +134,10 @@
 
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">  CLB Coding Dojo</a>
+                            <a href="#!" class="text-reset"> CLB Coding Dojo</a>
                         </p>
                         <p>
-                            <a href="#!" class="text-reset">  CodeGym Huế </a>
+                            <a href="#!" class="text-reset"> CodeGym Huế </a>
                         </p>
                         <p>
                             <a href="#!" class="text-reset">CodeGym Đà Nẵng</a>
@@ -137,4 +169,5 @@
 
 </div>
 </body>
+
 </html>
