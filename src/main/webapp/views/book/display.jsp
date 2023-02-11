@@ -33,7 +33,7 @@
 
 </script>
 <body>
-<div style="background-color: rgba(42,231,13,0.1)">
+<div style="background-color: rgba(234,192,192,0.29)">
     <div class="header">
         <img name="myimage" src="home/img/img_3.png" class="imgHot"/>
     </div>
@@ -65,8 +65,8 @@
         <h1 style="margin-left: 350px">
             <i>----------List Book Detail--------------</i>
         </h1>
-        <div style="margin-left: 200px">
-            <table border="5" style="margin-top: 50px ;text-align: center">
+        <div style="margin-left: 250px">
+            <table border="5" style="margin-top: 50px;text-align: center">
                 <tr>
                     <th>STT</th>
                     <th>name</th>
@@ -77,7 +77,7 @@
                     <th>producer</th>
                     <th>category</th>
                     <th>position</th>
-                    <th>Action</th>
+                    <th colspan="2">Action</th>
                 </tr>
                 <c:forEach items="${listBooks}" var="element" varStatus="stt">
                     <tr>
@@ -95,25 +95,28 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td>${element.quantity}</td>
-                        <c:forEach items="${listProducer}" var="producer">
-                            <c:if test="${element.producer_id == producer.id}">
-                                <td> ${producer.name} </td>
-                            </c:if>
-                        </c:forEach>
-                        <c:forEach items="${listCategory}" var="category">
+                        <td><b>${element.quantity}</b></td>
+
+                            <c:forEach items="${listProducer}" var="producer">
+                                <c:if test="${element.producer_id == producer.id}">
+                        <td>  <i style="color: #14ee0c">${producer.name}</i> </td>
+                                </c:if>
+                            </c:forEach>
+
+
+                            <c:forEach items="${listCategory}" var="category">
                             <c:if test="${element.category_id == category.id}">
-                                <td> ${category.name} </td>
+                        <td>  <i style="color: #0f7ee0">${category.name}</i></td>
                             </c:if>
-                        </c:forEach>
-                        <c:forEach items="${listPosition}" var="position">
-                            <c:if test="${element.book_position == book_position.id}">
-                                <td> ${position.name} </td>
-                            </c:if>
-                        </c:forEach>
-                        <td>
-                            ${element.book_position}
-                        </td>
+
+
+                            </c:forEach>
+                            <c:forEach items="${listPosition}" var="position">
+                                <c:if test="${element.position_id == position.id}">
+                        <td>        <i style="color: #03A9F4">${position.position}</i></td>
+                                </c:if>
+                            </c:forEach>
+
                         <td>
                             <a href="/BookServlet?action=edit&id=${element.id}">Edit </a> |
                             <a href="/BookServlet?action=delete&id=${element.id}"> Delete</a>

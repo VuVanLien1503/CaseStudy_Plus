@@ -28,11 +28,14 @@ public class UsersDAO {
         try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USES);
             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()){
-                users.add(new Users(resultSet.getInt(1),
+                users.add(new Users(
+                        resultSet.getInt(1),
                         resultSet.getString(2),
                         resultSet.getString(3),
                         resultSet.getString(4),
-                        resultSet.getBoolean(5)));
+                        resultSet.getDate(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)));
             }
         }catch (SQLException e) {
             e.printStackTrace();

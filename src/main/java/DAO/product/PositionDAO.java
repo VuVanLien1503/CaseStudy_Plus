@@ -10,17 +10,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookPositionDAO {
+public class PositionDAO {
     private  final Connection connection;
 
-    public BookPositionDAO() {
+    public PositionDAO() {
         connection = MyConnection.getConnection();
     }
-    private final String SELECT_ALL_BOOK_POSITION = "select * from book_position where status = true";
-    private final String INSERT_BOOK_POSITION = "insert into book_position(name,positionContain,position,quantityNow)values(?,?,?,?)";
-    private final String SELECT_BOOK_POSITION_BY_ID = "select * from book_position where id = ? and status = true";
-    private final String UPDATE_BOOK_POSITION ="update book_position set name = ? , position = ? where id = ?";
-    private final String DELETE_POSITION = "update book_position set status = false where id = ?";
+    private final String SELECT_ALL_BOOK_POSITION = "select * from positions where status = true";
+    private final String INSERT_BOOK_POSITION = "insert into positions(name,positionContain,position,quantityNow)values(?,?,?,?)";
+    private final String SELECT_BOOK_POSITION_BY_ID = "select * from positions where id = ? and status = true";
+    private final String UPDATE_BOOK_POSITION ="update positions set name = ? , position = ? where id = ?";
+    private final String DELETE_POSITION = "update positions set status = false where id = ?";
     public List<Position> selectAll(){
         List<Position> bookPositions = new ArrayList<>();
         try(PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_BOOK_POSITION);

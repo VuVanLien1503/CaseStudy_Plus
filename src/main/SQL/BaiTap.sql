@@ -20,10 +20,10 @@ create table producer(
                          name varchar (255),
                          status boolean default true
 );
-insert into producer(name) values('Nhà xuất bản Trẻ');
-insert into producer(name) values('Nhà xuất bản Kim Đồng');
-insert into producer(name) values('Nhà xuất bản CodeGym');
-insert into producer(name) values('Nhà xuất bản Hội Nhà văn');
+insert into producer(name) values('NXB-Trẻ');
+insert into producer(name) values('NXB-Kim Đồng');
+insert into producer(name) values('NXB-CodeGym');
+insert into producer(name) values('NXB-Nhà văn');
 
 create table category(
                          id int auto_increment primary key,
@@ -76,3 +76,11 @@ insert into book(name,descriptions,image,quantity,producer_id,category_id,positi
 insert into book(name,descriptions,image,quantity,producer_id,category_id,position_id) values('Sach_Lap_Trinh_3','Tốt','../../image/imageBook/lapTrinh/Sach_Lap_Trinh_4.png',10,4,3,4);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,position_id) values('Sach_Ma_Thuat_3','Tốt','../../image/imageBook/MaThuat/Sach_Ma_Thuat_3.png',10,4,4,3);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,position_id) values('Sach_Ma_Thuat_4','Tốt','../../image/imageBook/MaThuat/Sach_Ma_Thuat_4.png',10,4,4,3);
+
+
+
+SELECT book.id,book.name,book.descriptions,book.image,book.status_book,book.quantity,book.producer_id,book.category_id,book.position_id,book.status FROM book
+                                                                                                                                                             inner join producer on book.producer_id =producer.id
+                                                                                                                                                             inner join category on book.category_id =category.id
+                                                                                                                                                             inner join positions on book.position_id = positions.id
+where producer.status=true and category.status=true and positions.status=true;

@@ -15,6 +15,16 @@ public class Users {
     public Users() {
     }
 
+    public Users(int id, String name, String email, String password, Date birthDay, String phone, String image) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthDay = birthDay;
+        this.phone = phone;
+        this.image = image;
+    }
+
     public Users(String name, String email, String password, boolean status) {
         this.name = name;
         this.email = email;

@@ -41,6 +41,18 @@ public class Book {
         this.status = status;
     }
 
+    public Book(int id, String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int position_id) {
+        this.id = id;
+        this.name = name;
+        this.descriptions = descriptions;
+        this.image = image;
+        this.status_book = status_book;
+        this.quantity = quantity;
+        this.producer_id = producer_id;
+        this.category_id = category_id;
+        this.position_id = position_id;
+    }
+
     public Book(String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int position_id) {
         this.name = name;
         this.descriptions = descriptions;

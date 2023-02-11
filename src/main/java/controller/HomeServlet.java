@@ -23,7 +23,7 @@ public class HomeServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "login":
+            case "??":
                 login(request, response);
                 break;
             default:

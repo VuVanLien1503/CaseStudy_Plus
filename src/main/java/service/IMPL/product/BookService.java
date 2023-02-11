@@ -27,7 +27,7 @@ public class BookService implements ICrud<Book>, ISearch<Book> {
 
     @Override
     public void delete(int id) {
-
+        bookDAO.delete(id);
     }
 
     @Override

@@ -103,8 +103,8 @@
           <tr>
             <th><label for="book_position">book_position:</label></th>
             <td>
-              <select name="book_position" id="book_position">
-                <c:forEach items="${listBookPosition}" var="element">
+              <select name="position" id="book_position">
+                <c:forEach items="${listPosition}" var="element">
                   <option value="${element.id}">${element.position}</option>
                 </c:forEach>
               </select>

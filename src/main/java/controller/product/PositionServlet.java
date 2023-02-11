@@ -1,7 +1,7 @@
 package controller.product;
 
 import model.product.Position;
-import service.IMPL.product.BookPositionService;
+import service.IMPL.product.PositionService;
 import service.MyRegex;
 
 import javax.servlet.*;
@@ -10,12 +10,12 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 @WebServlet(name = "BookPositionServlet", value = "/BookPositionServlet")
-public class BookPositionServlet extends HttpServlet {
+public class PositionServlet extends HttpServlet {
     private final  MyRegex myRegex;
-    private final BookPositionService bookPositionService;
+    private final PositionService positionService;
 
-    public BookPositionServlet() {
-        bookPositionService = new BookPositionService();
+    public PositionServlet() {
+        positionService = new PositionService();
         myRegex = new MyRegex();
     }
     @Override
@@ -39,7 +39,7 @@ public class BookPositionServlet extends HttpServlet {
                 showPosition(request,response);
                 break;
             default:
-                listBookPosition(request,response);
+                listPosition(request,response);
                 break;
         }
     }
@@ -67,8 +67,8 @@ public class BookPositionServlet extends HttpServlet {
                 break;
         }
     }
-    private void listBookPosition(HttpServletRequest request, HttpServletResponse response){
-        List<Position> list = bookPositionService.selectAll();
+    private void listPosition(HttpServletRequest request, HttpServletResponse response){
+        List<Position> list = positionService.selectAll();
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/list.jsp");
         request.setAttribute("listBookPosition",list );
         try {
@@ -101,7 +101,7 @@ public class BookPositionServlet extends HttpServlet {
             int quantityNow = Integer.parseInt(quantityNowString);
             if (quantityNow<=quantity){
                 bookPosition = new Position(name, quantity, position, quantityNow);
-                bookPositionService.insert(bookPosition);
+                positionService.insert(bookPosition);
             }
         }
         if (bookPosition == null) {
@@ -125,7 +125,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void  showUpdateForm(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        Position bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = positionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
         request.setAttribute("update",bookPosition);
         try {
@@ -144,7 +144,7 @@ public class BookPositionServlet extends HttpServlet {
         boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
         if (regexName&regexPosition){
             bookPosition = new Position(id,name,position);
-            bookPositionService.update(bookPosition);
+            positionService.update(bookPosition);
         }
         if (bookPosition == null){
             dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
@@ -166,7 +166,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        Position bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = positionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/delete.jsp");
         request.setAttribute("delete",bookPosition);
         try {
@@ -177,7 +177,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void deletePosition(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        bookPositionService.delete(id);
+        positionService.delete(id);
         try {
             response.sendRedirect("/BookPositionServlet");
         } catch (IOException e) {
@@ -186,7 +186,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void showPosition(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        Position bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = positionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/detail.jsp");
         request.setAttribute("views",bookPosition);
         try {

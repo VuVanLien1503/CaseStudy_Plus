@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>List Book</title>
+    <title>Edit Book</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -51,76 +51,71 @@
         </div>
     </nav>
     <div>
-        <h1 style="margin-left: 300px">
-            <i>----------Create New Book--------------</i>
-        </h1>
-        <h3><i></i></h3>
-        <div style="margin-left: 400px;margin-top: 20px">
-            <form action="/BookServlet?action=create" method="post">
-                <table border="1" style="border-collapse: collapse">
+        <h1 style="margin-left: 300px"><i>----------DELETE--------------</i></h1>
+
+        <h3 style="margin-left: 400px">
+            <c:if test="${message == null}">
+                <i style="color: red">Xóa Thành Công</i>
+            </c:if>
+        </h3>
+        <div style="margin-left: 300px">
+            <form action="/BookServlet?action=delete&id=${book.id}" method="post">
+                <table border="5" style="margin-top: 50px;text-align: center">
                     <tr>
-                        <th><label for="name"></label><i>Name</i></th>
-                        <td><input type="text" id="name" name="name"></td>
+                        <th>ID</th>
+                        <th>name</th>
+                        <th>descr</th>
+                        <th>image</th>
+                        <th>status</th>
+                        <th>quantity</th>
+                        <th>producer</th>
+                        <th>category</th>
+                        <th>position</th>
+                        <th colspan="2">Action</th>
                     </tr>
                     <tr>
-                        <th><label for="descriptions"><i>Descriptions</i></label></th>
-                        <td><input type="text" name="descriptions" id="descriptions"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="image"><i>Image</i></label></th>
-                        <td><input type="file" name="imagePath" id="image"></td>
-                    </tr>
-                    <tr>
-                        <th><i>Status_Book</i></th>
+                        <td>${book.id}</td>
+                        <td><b>${book.name}</b></td>
+                        <td><sub>${book.descriptions}</sub></td>
+                        <td><img src="${book.image}" alt="error" style="width: 100px;height: 120px"></td>
                         <td>
-                            <label for="radio1"><input type="radio" id="radio1" name="status_book" value="true">Sách Mới</label>
-                            <br>
-                            <label for="radio2"><input type="radio" id="radio2" name="status_book" value="false">Sách Cũ</label>
-                            <br>
+                            <c:choose>
+                                <c:when test="${book.status_book ==true}">
+                                    <i>Sách Mới</i>
+                                </c:when>
+                                <c:otherwise>
+                                    <i>Sách Cũ</i>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
+                        <td><b>${book.quantity}</b></td>
+
+                        <c:forEach items="${listProducer}" var="producer">
+                            <c:if test="${book.producer_id == producer.id}">
+                                <td><i style="color: #14ee0c">${producer.name}</i></td>
+                            </c:if>
+                        </c:forEach>
+                        <c:forEach items="${listCategory}" var="category">
+                            <c:if test="${book.category_id == category.id}">
+                                <td><i style="color: #0f7ee0">${category.name}</i></td>
+                            </c:if>
+                        </c:forEach>
+                        <c:forEach items="${listPosition}" var="position">
+                            <c:if test="${book.position_id == position.id}">
+                                <td><i style="color: #03A9F4">${position.position}</i></td>
+                            </c:if>
+                        </c:forEach>
+
                     </tr>
                     <tr>
-                        <td><label for="quantity">Quantity:</label></td>
-                        <td><input type="text" name="quantity" id="quantity"></td>
-                    </tr>
-                    <tr>
-                        <th><label for="producer">Producer:</label></th>
-                        <td>
-                            <select name="producer" id="producer">
-                                <c:forEach items="${listProducer}" var="element">
-                                    <option value="${element.id}">${element.name}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label for="category">Category:</label></th>
-                        <td>
-                            <select name="category" id="category">
-                                <c:forEach items="${listCategory}" var="element">
-                                    <option value="${element.id}">${element.name}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label for="book_position">book_position:</label></th>
-                        <td>
-                            <select name="position" id="book_position">
-                                <c:forEach items="${listBookPosition}" var="element">
-                                    <option value="${element.id}">${element.position}</option>
-                                </c:forEach>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" style="text-align: center">
-                            <button>Create New</button>
+                        <td colspan="11">
+                            <button><span style="color: red">DELETE</span></button>
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
+
     </div>
 </div>
 <div class="footer">

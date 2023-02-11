@@ -1,17 +1,17 @@
 package service.IMPL.product;
 
-import DAO.product.BookPositionDAO;
+import DAO.product.PositionDAO;
 import model.product.Position;
 import service.myinterface.ICrud;
 import service.myinterface.ISearch;
 
 import java.util.List;
 
-public class BookPositionService implements ICrud<Position>, ISearch<Position> {
-    private final BookPositionDAO bookPositionDAO;
+public class PositionService implements ICrud<Position>, ISearch<Position> {
+    private final PositionDAO bookPositionDAO;
 
-    public BookPositionService() {
-        bookPositionDAO = new BookPositionDAO();
+    public PositionService() {
+        bookPositionDAO = new PositionDAO();
     }
 
     @Override
