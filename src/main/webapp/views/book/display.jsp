@@ -47,12 +47,15 @@
                     </li>
 
                     <form class="d-flex" style="margin-left: 300px;margin-bottom: 0px">
-                        <input style="width: 400px" class="form-control me-2" type="text" placeholder="Search By Category">
+                        <input style="width: 400px" class="form-control me-2" type="text"
+                               placeholder="Search By Category">
                         <button class="btn btn-primary" type="button">Search</button>
                     </form>
                 </ul>
                 <div>
-                    <button>Create New Book</button>
+                    <button>
+                        <a href="/BookServlet?action=create">Create New Book</a>
+                    </button>
                 </div>
             </div>
 
@@ -63,17 +66,18 @@
             <i>----------List Book Detail--------------</i>
         </h1>
         <div style="margin-left: 200px">
-            <table border="5" style="margin-top: 50px">
+            <table border="5" style="margin-top: 50px ;text-align: center">
                 <tr>
                     <th>STT</th>
                     <th>name</th>
-                    <th>descriptions</th>
+                    <th>descr</th>
                     <th>image</th>
-                    <th>status_book</th>
+                    <th>status</th>
                     <th>quantity</th>
-                    <th>producer_id</th>
-                    <th>category_id</th>
-                    <th>book_position</th>
+                    <th>producer</th>
+                    <th>category</th>
+                    <th>position</th>
+                    <th>Action</th>
                 </tr>
                 <c:forEach items="${listBooks}" var="element" varStatus="stt">
                     <tr>
@@ -92,13 +96,32 @@
                             </c:choose>
                         </td>
                         <td>${element.quantity}</td>
-                        <td>${element.producer_id}</td>
-                        <td>${element.category_id}</td>
-                        <td>${element.book_position}</td>
+                        <c:forEach items="${listProducer}" var="producer">
+                            <c:if test="${element.producer_id == producer.id}">
+                                <td> ${producer.name} </td>
+                            </c:if>
+                        </c:forEach>
+                        <c:forEach items="${listCategory}" var="category">
+                            <c:if test="${element.category_id == category.id}">
+                                <td> ${category.name} </td>
+                            </c:if>
+                        </c:forEach>
+                        <c:forEach items="${listPosition}" var="position">
+                            <c:if test="${element.book_position == book_position.id}">
+                                <td> ${position.name} </td>
+                            </c:if>
+                        </c:forEach>
+                        <td>
+                            ${element.book_position}
+                        </td>
+                        <td>
+                            <a href="/BookServlet?action=edit&id=${element.id}">Edit </a> |
+                            <a href="/BookServlet?action=delete&id=${element.id}"> Delete</a>
+                        </td>
                     </tr>
                 </c:forEach>
             </table>
-            <div style="margin-left: 400px;margin-top: 30px">
+            <div style="margin-left: 300px;margin-top: 30px">
                 <div>
                     <a href="/BookServlet?page=${currentPage-1}" style="margin-right: 20px"><b>Back</b></a>
                     <span style="color: red"> [ ${currentPage} ]</span>

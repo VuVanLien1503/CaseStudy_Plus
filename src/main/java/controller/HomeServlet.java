@@ -94,7 +94,9 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("path", path);
         request.setAttribute("listBooks", bookService.selectAll());
         request.setAttribute("Name_User", users);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+//        request.setAttribute("info_user",);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("home/home.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {

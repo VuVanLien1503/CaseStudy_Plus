@@ -3,10 +3,11 @@ package service.IMPL.product;
 import DAO.product.BookDAO;
 import model.product.Book;
 import service.myinterface.ICrud;
+import service.myinterface.ISearch;
 
 import java.util.List;
 
-public class BookService implements ICrud<Book> {
+public class BookService implements ICrud<Book>, ISearch<Book> {
     private final BookDAO bookDAO;
 
     public BookService() {
@@ -21,6 +22,7 @@ public class BookService implements ICrud<Book> {
 
     @Override
     public void insert(Book book) {
+        bookDAO.create(book);
     }
 
     @Override
@@ -30,6 +32,16 @@ public class BookService implements ICrud<Book> {
 
     @Override
     public void update(Book book) {
-        bookDAO.create(book);
+        bookDAO.update(book);
+    }
+
+    @Override
+    public Book selectById(int id) {
+        return bookDAO.findById(id);
+    }
+
+    @Override
+    public List<Book> selectName(String value) {
+        return null;
     }
 }
