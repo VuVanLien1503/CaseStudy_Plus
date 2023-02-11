@@ -28,16 +28,6 @@ public class UsersServlet extends HttpServlet {
 
         switch (action) {
             case "create":
-
-                break;
-            case "update":
-
-                break;
-            case "delete":
-
-                break;
-            case "views":
-
                 break;
             default:
                 register(response);
@@ -60,15 +50,6 @@ public class UsersServlet extends HttpServlet {
                 break;
             case "create":
                 createUsers(request, response);
-                break;
-            case "update":
-
-                break;
-            case "delete":
-
-                break;
-            case "views":
-
                 break;
             default:
 
@@ -111,7 +92,7 @@ public class UsersServlet extends HttpServlet {
         }
         if (check) {
             request.getSession().setAttribute("objectName", users);
-            dispatcher = request.getRequestDispatcher("/HomeServlet?action=loginCheck");
+            dispatcher = request.getRequestDispatcher("/HomeServlet");//?action=loginCheck
             try {
                 dispatcher.forward(request, response);
             } catch (ServletException | IOException e) {

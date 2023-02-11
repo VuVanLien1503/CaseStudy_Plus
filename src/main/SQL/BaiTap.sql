@@ -82,7 +82,7 @@ status boolean default true
  );
 insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_1.png',10,1,1,1);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_2.png',10,1,1,1);
-insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_3.png',10,1,1,1);
+insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_7.png',10,1,1,1);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_4.png',10,1,1,1);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_5.png',10,1,1,1);
 insert into book(name,descriptions,image,quantity,producer_id,category_id,book_position) values('Sach_Trinh_Tham_1','Tốt','../../image/imageBook/TrinhTham/Sach_Trinh_Tham_6.png',10,1,1,1);

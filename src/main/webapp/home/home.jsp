@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
+    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
     <link rel="stylesheet" href="/home/home.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -100,14 +101,20 @@
             <c:choose>
                 <c:when test="${Name_User==null}">
                     <span style="color: palegreen;margin-right: 30px"><a href="/login/login.jsp">Đăng Nhập</a></span>
+                    <a class="navbar-brand" href="#">
+                        <img src="../image/imageUser/user_0.png" alt="lol" style="width:40px;height: 40px"
+                             class="rounded-pill">
+                    </a>
+
                 </c:when>
                 <c:otherwise>
                     <span style="color: palegreen;margin-right: 30px">${Name_User.name}</span>
+                    <a class="navbar-brand" href="#">
+                        <img src="${Name_User.image}" alt="lol" style="width:40px;height: 40px" class="rounded-pill">
+                    </a>
+
                 </c:otherwise>
             </c:choose>
-            <a class="navbar-brand" href="#">
-                <img src="../image/imageUser/user_1.png" alt="lol" style="width:40px;height: 40px" class="rounded-pill">
-            </a>
         </div>
     </nav>
     <div class="container" style="margin-left: 122px">
@@ -117,26 +124,35 @@
                     <table>
                         <div class="row">
                             <c:forEach items="${listBooks}" var="element">
-                                <div class="container col-md-4"style="width: 18rem; margin: 15px">
+                                <div class="container col-md-4" style="width: 18rem; margin: 15px">
                                     <img src="${element.image}" class="card-img-top" alt="error"
                                          style="width: 250px;height: 300px">
                                     <div class="card-body" style="text-align: center">
-                                        <h5 style="margin-top: 10px;color: #ee940c" class="card-title">${element.name}</h5>
+                                        <h5 style="margin-top: 10px;color: #ee940c"
+                                            class="card-title">${element.name}</h5>
                                         <p class="card-text"></p>
                                         <c:choose>
                                             <c:when test="${Name_User==null}">
                                                 <span class="btn btn-primary">Detail</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="/BookServlet?action=detail$id=${element.id} " class="btn btn-primary" >Detail</a>
+                                                <a href="/BookServlet?action=detail$id=${element.id} "
+                                                   class="btn btn-primary">Detail</a>
                                             </c:otherwise>
                                         </c:choose>
                                     </div>
                                 </div>
                             </c:forEach>
                         </div>
-
                     </table>
+                    <div style="margin-left: 400px;margin-top: 30px">
+                        <div>
+                            <a href="/HomeServlet?page=${currentPage-1}" style="margin-right: 20px"><b>Back</b></a>
+                            <span style="color: red"> [ ${currentPage} ]</span>
+                            <a href="/HomeServlet?page=${currentPage+1}" style="margin-left: 20px"><b>Next</b></a>
+                            <a href="/HomeServlet?page=${totalPages+1}" ><i>[${totalPages+1}]</i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
