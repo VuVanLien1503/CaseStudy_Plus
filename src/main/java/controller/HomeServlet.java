@@ -52,8 +52,9 @@ public class HomeServlet extends HttpServlet {
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
         Users users = null;
-//        users = (Users) request.getSession().getAttribute("objectName");
-        users=usersService.selectById(2);
+        users = (Users) request.getSession().getAttribute("objectName");
+        request.setAttribute("Name_User", users);
+
         String path = "home/img/img_";
         List<Book>list=bookService.selectAll();
         int totalPages = (int) Math.ceil(list.size() / 6);
@@ -90,10 +91,11 @@ public class HomeServlet extends HttpServlet {
     private void login(HttpServletRequest request, HttpServletResponse response) {
         Users users = null;
         users = (Users) request.getSession().getAttribute("objectName");
+        request.setAttribute("Name_User", users);
         String path = "home/img/img_";
         request.setAttribute("path", path);
         request.setAttribute("listBooks", bookService.selectAll());
-        request.setAttribute("Name_User", users);
+
 //        request.setAttribute("info_user",);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("home/home.jsp");

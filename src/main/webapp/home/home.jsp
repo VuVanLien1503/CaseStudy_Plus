@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+
 </head>
 <script type="text/javascript">
     let current = 0;
@@ -106,7 +107,9 @@
 
                 </c:when>
                 <c:otherwise>
-                    <span style="color: palegreen;margin-right: 30px"><a href="/login/login.jsp">Đăng Xuất</a></span>
+                    <span style="color: palegreen;margin-right: 30px">
+                        <a href="/login/login.jsp" style="color: red">Đăng Xuất</a>
+                    </span>
                     <a class="navbar-brand" href="/UsersServlet?action=edit&id=${Name_User.id}">
                         <img src="${Name_User.image}" alt="lol" style="width:40px;height: 40px" class="rounded-pill">
                     </a>
@@ -164,22 +167,22 @@
             </div>
             <div>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-facebook-f">Facebook</i>
                 </a>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-twitter"></i>
+                    <i class="button social-account-button twitter-button button-fullwidth"></i>
                 </a>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-google"></i>
+                    <i class="fab fa-google">Google</i>
                 </a>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-instagram">Instagram</i>
                 </a>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-linkedin"></i>
+                    <i class="fab fa-linkedin">Linkedin</i>
                 </a>
                 <a href="" class="me-4 text-reset">
-                    <i class="fab fa-github"></i>
+                    <i class="fab fa-github">Github</i>
                 </a>
             </div>
         </section>

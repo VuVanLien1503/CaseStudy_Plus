@@ -8,21 +8,19 @@ body {
 }
 
 .header {
-    background: rgba(255, 255, 255, 0.71);
-    height: 20pc;
-    color: #58257b;
+    height: 20%;
 }
 
 
 .footer {
-    background-color: rgba(212, 197, 222, 0.42);
     text-align: center;
     padding-top: 10px;
+    height: 100px;
 }
 
 .imgHot {
     width: 100%;
-    height: 20pc;
+    height: 20%;
 }
 
 
