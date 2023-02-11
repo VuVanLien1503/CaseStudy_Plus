@@ -21,7 +21,7 @@
     <div class="flex-grid">
         <div class="login-half left">
             <div class="login-area">
-                <form class="login-form top-label-form" action="/UsersServlet?action=login" method="post">
+                <form class="login-form top-label-form" action="/UsersServlet?action=checkLogin" method="post">
                     <div id="login-email" class="field">
                         <label for="login-email-field">Enter Email</label>
                         <span>

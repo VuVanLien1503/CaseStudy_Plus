@@ -45,8 +45,8 @@ public class UsersServlet extends HttpServlet {
         }
 
         switch (action) {
-            case "login":
-                login(request, response);
+            case "checkLogin":
+                checkLogin(request, response);
                 break;
             case "create":
                 createUsers(request, response);
@@ -57,7 +57,7 @@ public class UsersServlet extends HttpServlet {
         }
     }
 
-    private void login(HttpServletRequest request, HttpServletResponse response) {
+    private void checkLogin(HttpServletRequest request, HttpServletResponse response) {
         boolean check = false;
         boolean checkEmail = false;
         Users users = null;
@@ -92,7 +92,7 @@ public class UsersServlet extends HttpServlet {
         }
         if (check) {
             request.getSession().setAttribute("objectName", users);
-            dispatcher = request.getRequestDispatcher("/HomeServlet");//?action=loginCheck
+            dispatcher = request.getRequestDispatcher("/HomeServlet?action=login");
             try {
                 dispatcher.forward(request, response);
             } catch (ServletException | IOException e) {

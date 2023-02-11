@@ -45,12 +45,10 @@
                     <li class="nav-item">
                         <c:choose>
                             <c:when test="${Name_User==null}">
-                                <a class="nav-link" href="#">
-                                    <span style="color: #14ee0c">List-Detail</span></a>
+                                <a class="nav-link" href="/BookServlet"><span style="color: #14ee0c">List-Detail</span></a>
                             </c:when>
                             <c:otherwise>
-                                <a class="nav-link" href="/BookServlet">
-                                    <span style="color: #14ee0c">List-Detail</span></a>
+                                <a class="nav-link" href="/BookServlet"><span style="color: #14ee0c">List-Detail</span></a>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -150,7 +148,7 @@
                             <a href="/HomeServlet?page=${currentPage-1}" style="margin-right: 20px"><b>Back</b></a>
                             <span style="color: red"> [ ${currentPage} ]</span>
                             <a href="/HomeServlet?page=${currentPage+1}" style="margin-left: 20px"><b>Next</b></a>
-                            <a href="/HomeServlet?page=${totalPages+1}" ><i>[${totalPages+1}]</i></a>
+                            <a href="/HomeServlet?page=${totalPages+1}"><i>[${totalPages+1}]</i></a>
                         </div>
                     </div>
                 </div>

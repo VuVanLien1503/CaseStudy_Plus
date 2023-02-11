@@ -3,6 +3,7 @@ package controller;
 import model.product.Book;
 import model.user.Users;
 import service.IMPL.product.BookService;
+import service.IMPL.user.UsersService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,6 +14,7 @@ import java.util.List;
 @WebServlet(name = "HomeServlet", value = "/HomeServlet")
 public class HomeServlet extends HttpServlet {
     BookService bookService = new BookService();
+    UsersService usersService=new UsersService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,9 +23,9 @@ public class HomeServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-//            case "loginCheck":
-//                checkLogin(request, response);
-//                break;
+            case "login":
+                login(request, response);
+                break;
             default:
                 showList(request, response);
                 break;
@@ -34,13 +36,24 @@ public class HomeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            String action=request.getParameter("action");
+            if (action==null){
+                action="";
+            }
+            switch (action){
+                case "login":
+                    login(request, response);
+                    break;
+                default:
 
+                    break;
+            }
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-
         Users users = null;
-        users = (Users) request.getSession().getAttribute("objectName");
+//        users = (Users) request.getSession().getAttribute("objectName");
+        users=usersService.selectById(2);
         String path = "home/img/img_";
         List<Book>list=bookService.selectAll();
         int totalPages = (int) Math.ceil(list.size() / 6);
@@ -63,8 +76,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("totalPages", totalPages);
         request.setAttribute("path", path);
 
-//        request.setAttribute("listBooks", list);
-        request.setAttribute("Name_User", users);
+//        request.setAttribute("Name_User", users);
         RequestDispatcher dispatcher = request.getRequestDispatcher("home/home.jsp");
 
 
@@ -75,21 +87,21 @@ public class HomeServlet extends HttpServlet {
         }
     }
 
-//    private void checkLogin(HttpServletRequest request, HttpServletResponse response) {
-//        Users users = null;
-//        users = (Users) request.getSession().getAttribute("objectName");
-//        String path = "home/img/img_";
-//        request.setAttribute("path", path);
-//        request.setAttribute("listBooks", bookService.selectAll());
-//        request.setAttribute("Name_User", users);
-//        RequestDispatcher dispatcher = request.getRequestDispatcher("home/home.jsp");
-//        try {
-//            dispatcher.forward(request, response);
-//        } catch (ServletException | IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    private void login(HttpServletRequest request, HttpServletResponse response) {
+        Users users = null;
+        users = (Users) request.getSession().getAttribute("objectName");
+        String path = "home/img/img_";
+        request.setAttribute("path", path);
+        request.setAttribute("listBooks", bookService.selectAll());
+        request.setAttribute("Name_User", users);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login/login.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 }

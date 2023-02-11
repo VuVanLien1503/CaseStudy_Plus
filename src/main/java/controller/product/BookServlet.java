@@ -13,6 +13,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "BookServlet", value = "/BookServlet")
 public class BookServlet extends HttpServlet {
@@ -76,13 +77,30 @@ public class BookServlet extends HttpServlet {
     }
 
     private void showList(HttpServletRequest request, HttpServletResponse response) throws RuntimeException {
-        request.setAttribute("listBooks", bookService.selectAll());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/book/display");
+        List<Book> list=bookService.selectAll();
+        int totalPages = (int) Math.ceil(list.size() / 4);
+        String currentPageStr = request.getParameter("page");
+        int currentPage = (currentPageStr != null) ? Integer.parseInt(currentPageStr) : 1;
+        if (currentPage>totalPages+1){
+            currentPage=1;
+        }else {
+            if (currentPage<1){
+                currentPage=totalPages+1;
+            }
+        }
+        int startIndex = (currentPage - 1) * 4;
+        int endIndex = Math.min(startIndex + 4, list.size());
+        List<Book> currentPageProducts = list.subList(startIndex, endIndex);
+        request.setAttribute("listBooks", currentPageProducts);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/book/display.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void showCreate(HttpServletRequest request, HttpServletResponse response) {
