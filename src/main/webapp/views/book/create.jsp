@@ -105,7 +105,7 @@
                         <td>
                             <select name="book_position" id="book_position">
                                 <c:forEach items="${listBookPosition}" var="element">
-                                    <option value="${element.id}">${element.name}</option>
+                                    <option value="${element.id}">${element.position}</option>
                                 </c:forEach>
                             </select>
                         </td>

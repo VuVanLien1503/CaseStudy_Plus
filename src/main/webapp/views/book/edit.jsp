@@ -84,8 +84,8 @@
             <th><label for="producer">Producer:</label></th>
             <td>
               <select name="producer" id="producer">
-                <c:forEach items="${listProducer}" var="element">
-                  <option value="${element.id}">${element.name}</option>
+                <c:forEach items="${listProducer}" var="producer">
+                  <option value="${producer.id}">${producer.name}</option>
                 </c:forEach>
               </select>
             </td>
@@ -94,8 +94,8 @@
             <th><label for="category">Category:</label></th>
             <td>
               <select name="category" id="category">
-                <c:forEach items="${listCategory}" var="element">
-                  <option value="${element.id}">${element.name}</option>
+                <c:forEach items="${listCategory}" var="category">
+                  <option value="${category.id}">${category.name}</option>
                 </c:forEach>
               </select>
             </td>

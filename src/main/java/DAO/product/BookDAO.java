@@ -1,7 +1,6 @@
 package DAO.product;
 
 import model.product.Book;
-import model.product.BookPosition;
 import service.MyConnection;
 
 import java.sql.Connection;
@@ -61,7 +60,7 @@ public class BookDAO {
             preparedStatement.setInt(5, book.getQuantity());
             preparedStatement.setInt(6, book.getProducer_id());
             preparedStatement.setInt(7, book.getCategory_id());
-            preparedStatement.setInt(8, book.getBook_position());
+            preparedStatement.setInt(8, book.getPosition_id());
 
             preparedStatement.executeUpdate();
             connection.commit();
@@ -85,7 +84,7 @@ public class BookDAO {
             preparedStatement.setInt(5, book.getQuantity());
             preparedStatement.setInt(6, book.getProducer_id());
             preparedStatement.setInt(7, book.getCategory_id());
-            preparedStatement.setInt(8, book.getBook_position());
+            preparedStatement.setInt(8, book.getPosition_id());
 
             preparedStatement.setInt(9,book.getId());
             preparedStatement.executeUpdate();

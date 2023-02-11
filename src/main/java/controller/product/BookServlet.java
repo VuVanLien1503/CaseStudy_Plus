@@ -1,9 +1,6 @@
 package controller.product;
 
 import model.product.Book;
-import model.product.BookPosition;
-import model.product.Category;
-import model.product.Producer;
 import service.IMPL.product.BookPositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;

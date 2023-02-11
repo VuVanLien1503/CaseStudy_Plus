@@ -1,6 +1,6 @@
 package model.product;
 
-public class BookPosition {
+public class Position {
     private int id;
     private String name;
     private int quantity;
@@ -8,10 +8,10 @@ public class BookPosition {
     private int quantityNow;
     private boolean status =true;
 
-    public BookPosition() {
+    public Position() {
     }
 
-    public BookPosition(String name, int quantity, String position, int quantityNow, boolean status) {
+    public Position(String name, int quantity, String position, int quantityNow, boolean status) {
         this.name = name;
         this.quantity = quantity;
         this.position = position;
@@ -19,7 +19,7 @@ public class BookPosition {
         this.status = status;
     }
 
-    public BookPosition(int id, String name, int quantity, String position, int quantityNow, boolean status) {
+    public Position(int id, String name, int quantity, String position, int quantityNow, boolean status) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -28,14 +28,14 @@ public class BookPosition {
         this.status = status;
     }
 
-    public BookPosition(String name, int quantity, String position, int quantityNow) {
+    public Position(String name, int quantity, String position, int quantityNow) {
         this.name = name;
         this.quantity = quantity;
         this.position = position;
         this.quantityNow = quantityNow;
     }
 
-    public BookPosition(int id,String name, String position) {
+    public Position(int id, String name, String position) {
         this.id = id;
         this.name = name;
         this.position = position;

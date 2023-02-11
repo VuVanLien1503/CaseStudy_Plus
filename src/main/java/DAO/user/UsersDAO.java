@@ -1,7 +1,6 @@
 package DAO.user;
 
 import DAO.MyConnection;
-import model.product.BookPosition;
 import model.user.Users;
 
 import java.sql.Connection;

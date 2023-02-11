@@ -1,13 +1,13 @@
 package service.IMPL.product;
 
 import DAO.product.BookPositionDAO;
-import model.product.BookPosition;
+import model.product.Position;
 import service.myinterface.ICrud;
 import service.myinterface.ISearch;
 
 import java.util.List;
 
-public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPosition> {
+public class BookPositionService implements ICrud<Position>, ISearch<Position> {
     private final BookPositionDAO bookPositionDAO;
 
     public BookPositionService() {
@@ -15,13 +15,13 @@ public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPos
     }
 
     @Override
-    public List<BookPosition> selectAll() {
+    public List<Position> selectAll() {
 
         return bookPositionDAO.selectAll();
     }
 
     @Override
-    public void insert(BookPosition bookPosition) {
+    public void insert(Position bookPosition) {
         bookPositionDAO.create(bookPosition);
     }
 
@@ -31,18 +31,18 @@ public class BookPositionService implements ICrud<BookPosition>, ISearch<BookPos
     }
 
     @Override
-    public void update(BookPosition bookPosition) {
+    public void update(Position bookPosition) {
         bookPositionDAO.update(bookPosition);
     }
 
     @Override
-    public BookPosition selectById(int id) {
+    public Position selectById(int id) {
 
         return bookPositionDAO.findById(id);
     }
 
     @Override
-    public List<BookPosition> selectName(String value) {
+    public List<Position> selectName(String value) {
         return null;
     }
 }

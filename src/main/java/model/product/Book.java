@@ -9,13 +9,14 @@ public class Book {
     private int quantity;
     private  int producer_id;
     private  int category_id;
-    private  int book_position;
+
+    private  int position_id;
     private boolean status=true;
 
     public Book() {
     }
 
-    public Book(int id, String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int book_position, boolean status) {
+    public Book(int id, String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int position_id, boolean status) {
         this.id = id;
         this.name = name;
         this.descriptions = descriptions;
@@ -24,11 +25,11 @@ public class Book {
         this.quantity = quantity;
         this.producer_id = producer_id;
         this.category_id = category_id;
-        this.book_position = book_position;
+        this.position_id = position_id;
         this.status = status;
     }
 
-    public Book(String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int book_position, boolean status) {
+    public Book(String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int position_id, boolean status) {
         this.name = name;
         this.descriptions = descriptions;
         this.image = image;
@@ -36,11 +37,11 @@ public class Book {
         this.quantity = quantity;
         this.producer_id = producer_id;
         this.category_id = category_id;
-        this.book_position = book_position;
+        this.position_id = position_id;
         this.status = status;
     }
 
-    public Book(String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int book_position) {
+    public Book(String name, String descriptions, String image, boolean status_book, int quantity, int producer_id, int category_id, int position_id) {
         this.name = name;
         this.descriptions = descriptions;
         this.image = image;
@@ -48,7 +49,7 @@ public class Book {
         this.quantity = quantity;
         this.producer_id = producer_id;
         this.category_id = category_id;
-        this.book_position = book_position;
+        this.position_id = position_id;
     }
 
     public int getId() {
@@ -115,12 +116,12 @@ public class Book {
         this.category_id = category_id;
     }
 
-    public int getBook_position() {
-        return book_position;
+    public int getPosition_id() {
+        return position_id;
     }
 
-    public void setBook_position(int book_position) {
-        this.book_position = book_position;
+    public void setPosition_id(int position_id) {
+        this.position_id = position_id;
     }
 
     public boolean isStatus() {

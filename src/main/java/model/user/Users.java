@@ -1,10 +1,15 @@
 package model.user;
 
+import java.util.Date;
+
 public class Users {
     private int id;
     private String name;
     private String email;
     private String password;
+    private Date birthDay;
+    private String phone;
+    private  String image;
     private boolean status=true;
 
     public Users() {
@@ -29,6 +34,17 @@ public class Users {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public Users(int id, String name, String email, String password, Date birthDay, String phone, String image, boolean status) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.birthDay = birthDay;
+        this.phone = phone;
+        this.image = image;
+        this.status = status;
     }
 
     public int getId() {
@@ -61,6 +77,30 @@ public class Users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Date getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(Date birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public boolean isStatus() {

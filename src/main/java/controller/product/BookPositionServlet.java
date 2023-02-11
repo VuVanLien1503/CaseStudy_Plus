@@ -1,6 +1,6 @@
 package controller.product;
 
-import model.product.BookPosition;
+import model.product.Position;
 import service.IMPL.product.BookPositionService;
 import service.MyRegex;
 
@@ -68,7 +68,7 @@ public class BookPositionServlet extends HttpServlet {
         }
     }
     private void listBookPosition(HttpServletRequest request, HttpServletResponse response){
-        List<BookPosition> list = bookPositionService.selectAll();
+        List<Position> list = bookPositionService.selectAll();
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/list.jsp");
         request.setAttribute("listBookPosition",list );
         try {
@@ -87,7 +87,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void createPosition(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher dispatcher;
-        BookPosition bookPosition = null;
+        Position bookPosition = null;
         String name = request.getParameter("name");
         String quantityString = (request.getParameter("quantity"));
         String position = request.getParameter("position");
@@ -100,7 +100,7 @@ public class BookPositionServlet extends HttpServlet {
             int quantity =Integer.parseInt(quantityString);
             int quantityNow = Integer.parseInt(quantityNowString);
             if (quantityNow<=quantity){
-                bookPosition = new BookPosition(name, quantity, position, quantityNow);
+                bookPosition = new Position(name, quantity, position, quantityNow);
                 bookPositionService.insert(bookPosition);
             }
         }
@@ -125,7 +125,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void  showUpdateForm(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        BookPosition bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = bookPositionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/update.jsp");
         request.setAttribute("update",bookPosition);
         try {
@@ -135,7 +135,7 @@ public class BookPositionServlet extends HttpServlet {
         }
     }
     private void updatePosition(HttpServletRequest request, HttpServletResponse response){
-        BookPosition bookPosition = null;
+        Position bookPosition = null;
         RequestDispatcher dispatcher;
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
@@ -143,7 +143,7 @@ public class BookPositionServlet extends HttpServlet {
         boolean regexName = myRegex.regex(name,myRegex.getPatternName());
         boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
         if (regexName&regexPosition){
-            bookPosition = new BookPosition(id,name,position);
+            bookPosition = new Position(id,name,position);
             bookPositionService.update(bookPosition);
         }
         if (bookPosition == null){
@@ -166,7 +166,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void showDeleteForm(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        BookPosition bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = bookPositionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/delete.jsp");
         request.setAttribute("delete",bookPosition);
         try {
@@ -186,7 +186,7 @@ public class BookPositionServlet extends HttpServlet {
     }
     private void showPosition(HttpServletRequest request, HttpServletResponse response){
         int id = Integer.parseInt(request.getParameter("id"));
-        BookPosition bookPosition = bookPositionService.selectById(id);
+        Position bookPosition = bookPositionService.selectById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book_position/detail.jsp");
         request.setAttribute("views",bookPosition);
         try {
