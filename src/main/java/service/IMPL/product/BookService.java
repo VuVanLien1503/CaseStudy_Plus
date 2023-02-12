@@ -42,6 +42,6 @@ public class BookService implements ICrud<Book>, ISearch<Book> {
 
     @Override
     public List<Book> selectName(String value) {
-        return null;
+        return bookDAO.findByName(value);
     }
 }

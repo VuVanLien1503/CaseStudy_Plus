@@ -89,10 +89,14 @@
                             </c:otherwise>
                         </c:choose>
                     </li>
-                    <form class="d-flex" style="margin-left: 100px;margin-bottom: 0px">
-                        <input class="form-control me-2" type="text" placeholder="Search By Category">
-                        <button class="btn btn-primary" type="button">Search</button>
+                    <form action="/BookServlet?action=search" method="post"
+                    style="margin-bottom: 0px">
+                       <div style="margin-left: 100px">
+                           <input type="text"name="search" placeholder="Enter Category"style="width: 350px;height: 40px;border-radius: 55px" >
+                           <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>
+                       </div>
                     </form>
+
                 </ul>
 
             </div>

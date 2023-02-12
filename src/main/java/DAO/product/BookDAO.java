@@ -25,8 +25,38 @@ public class BookDAO {
 
     private final String DELETE_BOOK = "update book set status = false where id = ?";
 
+    private final String SELECT_BY_CATEGORY = "select  book.id,book.name,book.descriptions,book.image,book.status_book,book.quantity,book.producer_id,book.category_id,book.position_id,book.status FROM book" +
+            "  inner join category on book.category_id =category.id " +
+            "where category.status=true and category.name= ?;";
+
     public BookDAO() {
         connection = MyConnection.getConnection();
+    }
+
+    public List<Book> findByName(String value) {
+
+        List<Book> listBook = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_CATEGORY)) {
+            preparedStatement.setString(1, value);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listBook.add(new Book(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8),
+                        resultSet.getInt(9),
+                        resultSet.getBoolean(10)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listBook;
     }
 
     public List<Book> findAll() {
@@ -121,7 +151,7 @@ public class BookDAO {
         return book;
     }
 
-    public void delete(int id){
+    public void delete(int id) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();

@@ -48,6 +48,65 @@ public class BookServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("utf-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "search":
+                search(request,response);
+                break;
+            case "delete":
+                delete(request, response);
+                break;
+            case "create":
+                create(request, response);
+                break;
+            case "edit":
+                edit(request, response);
+                break;
+        }
+
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) {
+        String value =request.getParameter("search");
+        List<Book> list = bookService.selectName(value);
+        int totalPages = (int) Math.ceil(list.size() / 4);
+        String currentPageStr = request.getParameter("page");
+        int currentPage = (currentPageStr != null) ? Integer.parseInt(currentPageStr) : 1;
+        if (currentPage > totalPages + 1) {
+            currentPage = 1;
+        } else {
+            if (currentPage < 1) {
+                currentPage = totalPages + 1;
+            }
+        }
+        int startIndex = (currentPage - 1) * 4;
+        int endIndex = Math.min(startIndex + 4, list.size());
+        List<Book> currentPageProducts = list.subList(startIndex, endIndex);
+        request.setAttribute("listBooks", currentPageProducts);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+
+        request.setAttribute("listProducer", producerService.selectAll());
+        request.setAttribute("listCategory", categoryService.selectAll());
+        request.setAttribute("listPosition", positionService.selectAll());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/book/display.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     private void detail(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         request.setAttribute("listBooks", bookService.selectById(id));
@@ -61,28 +120,6 @@ public class BookServlet extends HttpServlet {
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("utf-8");
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "delete":
-                delete(request, response);
-                break;
-            case "create":
-                create(request, response);
-                break;
-            case "edit":
-                edit(request, response);
-                break;
-        }
-
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {

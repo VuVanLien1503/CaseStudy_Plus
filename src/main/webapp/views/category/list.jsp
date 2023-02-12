@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <%--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">--%>
     <link rel="stylesheet" href="/css/home.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -46,10 +45,10 @@
                             <span style="color: #14ee0c">Home</span></a>
                     </li>
 
-                    <form class="d-flex" style="margin-left: 300px;margin-bottom: 0px">
-                        <input style="width: 400px" class="form-control me-2" type="text"
-                               placeholder="Search By Category">
-                        <button class="btn btn-primary" type="button">Search</button>
+                    <div style="margin-left: 100px">
+                        <input type="text"name="search " placeholder="Enter Category"style="width: 350px;height: 40px;border-radius: 55px" >
+                        <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>
+                    </div>
                     </form>
                 </ul>
                 <div>
