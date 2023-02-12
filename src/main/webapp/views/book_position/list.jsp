@@ -192,10 +192,6 @@
             <ul>
                 <li><a href="/BookServlet">Home</a></li>
                 <li><a href="/BookPositionServlet?action=create">Create Position</a></li>
-                <li><form action="/BookPositionServlet?action=search" method="post">
-                    <input type="text" name="search">
-                    <button type="submit" class="btn btn-dark">Search Book Position</button>
-                </form></li>
             </ul>
         </nav>
     <section id="home">
