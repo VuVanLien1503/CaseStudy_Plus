@@ -53,7 +53,7 @@
 
         <div class="container col-md-4" style="width: 18rem; margin: 15px">
             <div class="card-body" style="text-align: center">
-                <form action="/CategoryServlet?action=edit&id=${category.id}">
+                <form action="/CategoryServlet?action=update&id=${category.id}" method="post">
                     <h3><i>${category.name}</i></h3>
                    Name : <input type="text" name="name">
                     <button style="margin: 10px"><i style="color: blue">UPDATE</i></button>

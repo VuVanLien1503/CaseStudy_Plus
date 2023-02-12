@@ -108,7 +108,7 @@ public class CategoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        if (myRegex.regex(name, myRegex.getPatternName())) {
+        if (myRegex.regex(name, myRegex.getPatternViet())) {
             categoryService.update(new Category(id, name));
             try {
                 dispatcher = request.getRequestDispatcher("views/category/list.jsp");

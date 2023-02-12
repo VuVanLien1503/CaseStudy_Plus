@@ -53,7 +53,7 @@
 
     <div class="container col-md-4" style="width: 18rem; margin: 15px">
       <div class="card-body" style="text-align: center">
-        <form action="/CategoryServlet?action=delete&id=${category.id}">
+        <form action="/CategoryServlet?action=delete&id=${category.id} " method="post">
           <h3><i style="color: red">Bạn có Chắc Xóa <br><br>
                             ${category.name}...???</i></h3>
 

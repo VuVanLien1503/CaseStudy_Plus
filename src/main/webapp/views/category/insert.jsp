@@ -54,7 +54,7 @@
 
         <div class="container col-md-4" style="width: 18rem; margin: 15px">
             <div class="card-body" style="text-align: center">
-                <form action="/CategoryServlet?action=insert">
+                <form action="/CategoryServlet?action=insert" method="post">
 
                     <h3 style="margin: 10px"><input type="text"name="name"placeholder="Enter Name Category"></h3>
                     <button style="margin: 10px"><i style="color: blue">CREATE</i></button>
