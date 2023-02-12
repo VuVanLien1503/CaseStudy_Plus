@@ -36,30 +36,6 @@
     <div class="header">
         <img name="myimage" src="home/img/img_3.png" class="imgHot"/>
     </div>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/HomeServlet">
-                            <span style="color: #14ee0c">Home</span></a>
-                    </li>
-
-                    <form class="d-flex" style="margin-left: 300px;margin-bottom: 0px">
-                        <input style="width: 400px" class="form-control me-2" type="text"
-                               placeholder="Search By Category">
-                        <button class="btn btn-primary" type="button">Search</button>
-                    </form>
-                </ul>
-                <div>
-                    <button>
-                        <a href="/BookServlet?action=create">Create New Book</a>
-                    </button>
-                </div>
-            </div>
-
-        </div>
-    </nav>
     <div>
         <h1 style="margin-left: 350px">
             <i>----------List Book Detail--------------</i>
@@ -67,7 +43,7 @@
         <div style="margin-left: 250px">
             <table border="5" style="margin-top: 50px;text-align: center">
                 <tr>
-                    <th>STT</th>
+                    <th>ID</th>
                     <th>name</th>
                     <th>descr</th>
                     <th>image</th>
@@ -76,60 +52,54 @@
                     <th>producer</th>
                     <th>category</th>
                     <th>position</th>
-                    <th colspan="2">Action</th>
                 </tr>
-                <c:forEach items="${listBooks}" var="element" varStatus="stt">
-                    <tr>
-                        <td>${stt.index+1}</td>
-                        <td><b>${element.name}</b></td>
-                        <td><sub>${element.descriptions}</sub></td>
-                        <td><img src="${element.image}" alt="error" style="width: 100px;height: 120px"></td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${element.status_book ==true}">
-                                    <i>Sách Mới</i>
-                                </c:when>
-                                <c:otherwise>
-                                    <i>Sách Cũ</i>
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td><b>${element.quantity}</b></td>
-
-                            <c:forEach items="${listProducer}" var="producer">
-                                <c:if test="${element.producer_id == producer.id}">
-                        <td>  <i style="color: #14ee0c">${producer.name}</i> </td>
-                                </c:if>
-                            </c:forEach>
-
-
-                            <c:forEach items="${listCategory}" var="category">
-                            <c:if test="${element.category_id == category.id}">
-                        <td>  <i style="color: #0f7ee0">${category.name}</i></td>
+                <tr>
+                    <td>${listBooks.id}</td>
+                    <td><b>${listBooks.name}</b></td>
+                    <td><sub>${listBooks.descriptions}</sub></td>
+                    <td><img src="${listBooks.image}" alt="error" style="width: 100px;height: 120px"></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${listBooks.status_book ==true}">
+                                <i>Sách Mới</i>
+                            </c:when>
+                            <c:otherwise>
+                                <i>Sách Cũ</i>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td><b>${listBooks.quantity}</b></td>
+                    <td>
+                        <c:forEach items="${listProducer}" var="producer">
+                            <c:if test="${listBooks.producer_id == producer.id}">
+                                <i style="color: #14ee0c">${producer.name}</i>
                             </c:if>
+                        </c:forEach>
+                    </td>
+                    <td>
+                        <c:forEach items="${listCategory}" var="category">
+                            <c:if test="${listBooks.category_id == category.id}">
+                                <i style="color: #0f7ee0">${category.name}</i>
+                            </c:if>
+                        </c:forEach>
+                    </td>
+                    <td>
+                        <c:forEach items="${listPosition}" var="position">
+                            <c:if test="${listBooks.position_id == position.id}">
+                                <i style="color: #03A9F4">${position.position}</i>
+                            </c:if>
+                        </c:forEach>
+                    </td>
 
-
-                            </c:forEach>
-                            <c:forEach items="${listPosition}" var="position">
-                                <c:if test="${element.position_id == position.id}">
-                        <td>        <i style="color: #03A9F4">${position.position}</i></td>
-                                </c:if>
-                            </c:forEach>
-
-                        <td>
-                            <a href="/BookServlet?action=edit&id=${element.id}">Edit </a> |
-                            <a href="/BookServlet?action=delete&id=${element.id}"> Delete</a>
-                        </td>
-                    </tr>
-                </c:forEach>
             </table>
-            <div style="margin-left: 300px;margin-top: 30px">
-                <div>
-                    <a href="/BookServlet?page=${currentPage-1}" style="margin-right: 20px"><b>Back</b></a>
-                    <span style="color: red"> [ ${currentPage} ]</span>
-                    <a href="/BookServlet?page=${currentPage+1}" style="margin-left: 20px"><b>Next</b></a>
-                    <a href="/BookServlet?page=${totalPages+1}"><i>[${totalPages+1}]</i></a>
-                </div>
+            <div  style="margin-top: 40px;margin-right: 400px">
+
+                    <div colspan="9"style="text-align: center">
+                        <h3 style="color: #0c39ee">
+                            <a href="/HomeServlet">Back To Home</a>
+                        </h3>
+                    </div>
+
             </div>
         </div>
     </div>

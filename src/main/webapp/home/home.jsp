@@ -136,7 +136,7 @@
                                                 <span class="btn btn-primary">Detail</span>
                                             </c:when>
                                             <c:otherwise>
-                                                <a href="/BookServlet?action=detail$id=${element.id} "
+                                                <a href="/BookServlet?action=detail&id=${element.id} "
                                                    class="btn btn-primary">Detail</a>
                                             </c:otherwise>
                                         </c:choose>

@@ -30,6 +30,9 @@ public class BookServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "detail":
+                detail(request, response);
+                break;
             case "delete":
                 showDelete(request, response);
                 break;
@@ -42,6 +45,21 @@ public class BookServlet extends HttpServlet {
             default:
                 showList(request, response);
                 break;
+        }
+    }
+
+    private void detail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        request.setAttribute("listBooks", bookService.selectById(id));
+        request.setAttribute("listProducer", producerService.selectAll());
+        request.setAttribute("listCategory", categoryService.selectAll());
+        request.setAttribute("listPosition", positionService.selectAll());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/view.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
         }
     }
 
