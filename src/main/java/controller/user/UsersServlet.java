@@ -70,6 +70,7 @@ public class UsersServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) {
+        boolean checkExistence = false;
         Date date1 = null;
         String path = "../../image/imageUser/";
         int id = Integer.parseInt(request.getParameter("id"));
@@ -80,35 +81,107 @@ public class UsersServlet extends HttpServlet {
         String date = request.getParameter("birthDay");
         String phone = request.getParameter("phone");
         String image = path + request.getParameter("image");
-
-        if (name != null & email != null & password != null & date != null & phone != null & image != null) {
-
+        if (name == "" || email == "" || password == "" || date == "" || phone == "" || image == "") {
+            request.setAttribute("message", "Các Trường Không Được Để Trống....!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+            request.setAttribute("user", usersService.selectById(id));
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        } else {
             if (password.equals(confirm)) {
                 boolean isName = myRegex.regex(name, myRegex.getPatternViet());
-                boolean isEmail = myRegex.regex(email, myRegex.getPatternEmail());
-                boolean isPassWord = myRegex.regex(password, myRegex.getPatternName());
-                boolean isDate = myRegex.regex(date, myRegex.getPatternDate());
-                boolean isPhone = myRegex.regex(phone, myRegex.getPatternPhone());
-                if (isPhone & isName & isEmail & isPassWord & isDate) {
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-                    try {
-                        date1 = format.parse(date);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Users users = new Users(id, name, email, password, date1, phone, image);
-                    usersService.update(users);
-                    request.setAttribute("message", "Cập Nhật Thành Công");
-                    request.setAttribute("user", users);
-                    RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
-                    try {
-                        dispatcher.forward(request, response);
-                    } catch (ServletException | IOException e) {
-                        e.printStackTrace();
-                    }
+                if (isName) {
+                    boolean isEmail = myRegex.regex(email, myRegex.getPatternEmail());
+                    if (isEmail) {
+                        boolean isPassWord = myRegex.regex(password, myRegex.getPatternPassWord());
+                        if (isPassWord) {
+                            boolean isDate = myRegex.regex(date, myRegex.getPatternDate());
+                            if (isDate) {
+                                boolean isPhone = myRegex.regex(phone, myRegex.getPatternPhone());
+                                {
+                                    if (isPhone) {
 
+                                        for (Users u :
+                                                usersService.selectAll()) {
+                                            if (u.getEmail().equals(email)) {
+                                                checkExistence = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (checkExistence) {
+                                            request.setAttribute("message", "Email Đã Tồn Tại");
+                                            RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                                            request.setAttribute("user", usersService.selectById(id));
+                                            try {
+                                                dispatcher.forward(request, response);
+                                            } catch (ServletException | IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        } else {
+                                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                                            try {
+                                                date1 = format.parse(date);
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Users users = new Users(id, name, email, password, date1, phone, image);
+                                            usersService.update(users);
+                                            request.setAttribute("message", "Cập Nhật Thành Công");
+                                            request.setAttribute("user", users);
+                                            RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                                            try {
+                                                dispatcher.forward(request, response);
+                                            } catch (ServletException | IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    } else {
+                                        request.setAttribute("message", "Số Điện Thoại Không Đúng (10 Số)");
+                                        RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                                        request.setAttribute("user", usersService.selectById(id));
+                                        try {
+                                            dispatcher.forward(request, response);
+                                        } catch (ServletException | IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }
+                            } else {
+                                request.setAttribute("message", "Định Dạng ngày Không Đúng (yyy-mm-dd)");
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                                request.setAttribute("user", usersService.selectById(id));
+                                try {
+                                    dispatcher.forward(request, response);
+                                } catch (ServletException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            request.setAttribute("message", "Mật Khẩu 6-15 Ký Tự");
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                            request.setAttribute("user", usersService.selectById(id));
+                            try {
+                                dispatcher.forward(request, response);
+                            } catch (ServletException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
+                        request.setAttribute("message", "Định Dạng Email Không Đúng");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
+                        request.setAttribute("user", usersService.selectById(id));
+                        try {
+                            dispatcher.forward(request, response);
+                        } catch (ServletException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                 } else {
-                    request.setAttribute("message", "Lỗi Kiểu Dữ Liệu");
+                    request.setAttribute("message", "Tên Sai Định Dạng Yêu Cầu 3-15 Ký Tự");
                     RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
                     request.setAttribute("user", usersService.selectById(id));
                     try {
@@ -117,7 +190,6 @@ public class UsersServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                 }
-
             } else {
                 request.setAttribute("message", "Mật Khẩu Không Trùng Nhau");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
@@ -128,19 +200,7 @@ public class UsersServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-
-        } else {
-            request.setAttribute("message", "Các Trường Không Được Để Trống");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login/edit.jsp");
-            request.setAttribute("user", usersService.selectById(id));
-            try {
-                dispatcher.forward(request, response);
-            } catch (ServletException | IOException e) {
-                e.printStackTrace();
-            }
         }
-
-
     }
 
     private void showEdit(HttpServletRequest request, HttpServletResponse response) {
@@ -189,7 +249,7 @@ public class UsersServlet extends HttpServlet {
                 }
             }
         } else {
-            request.setAttribute("error-email", "Email invalidate");
+            request.setAttribute("error-email", "Email Chưa Đúng Định Dạng");
             dispatcher = request.getRequestDispatcher("login/login.jsp");
             try {
                 dispatcher.forward(request, response);
@@ -224,6 +284,10 @@ public class UsersServlet extends HttpServlet {
                     e.printStackTrace();
                 }
             }
+            if (check == false) {
+                request.setAttribute("error-email", "Email Đã Tồn Tại");
+                dispatcher = request.getRequestDispatcher("login/login.jsp");
+            }
         }
     }
 
@@ -242,7 +306,7 @@ public class UsersServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String passwordConfirm = request.getParameter("passwordConfirm");
-        boolean regexName = myRegex.regex(name, myRegex.getPatternName());
+        boolean regexName = myRegex.regex(name, myRegex.getPatternViet());
         boolean regexEmail = myRegex.regex(email, myRegex.getPatternEmail());
         boolean regexPassword = myRegex.regex(password, myRegex.getPatternPassWord());
         boolean regexPasswordConfirm = myRegex.regex(passwordConfirm, myRegex.getPatternPassWord());

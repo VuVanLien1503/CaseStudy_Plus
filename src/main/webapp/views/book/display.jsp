@@ -45,9 +45,11 @@
                             <span style="color: #14ee0c">Home</span></a>
                     </li>
                     <form action="/BookServlet?action=search">
-                    <div style="margin-left: 100px">
-                        <input type="text"name="search " placeholder="Enter Category"style="width: 350px;height: 40px;border-radius: 55px" >
-                        <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>
+                    <div style="margin-left: 360px">
+                        <form action="/BookServlet?action=searchByName" method="post">
+                            <input type="text"name="search " placeholder="Enter Name Book "style="width: 350px;height: 40px;border-radius: 55px" >
+                            <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>
+                        </form>
                     </div>
                     </form>
                 </ul>

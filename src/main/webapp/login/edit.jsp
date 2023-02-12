@@ -90,7 +90,6 @@
                         <h6>
                             <i>
                                 <c:if test="${message!=null}">
-                                    <span>ERROR...!</span><br>
                                     ${message}
                                 </c:if>
                             </i>

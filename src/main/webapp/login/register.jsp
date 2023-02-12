@@ -16,7 +16,7 @@
 <body class="body-login logged-out not-team" data-sidebar-collapsed="false" data-mobile-nav-open="false">
 <div class="login-wrap">
   <header class="login-header">
-    <h2 class="little-big-header"> R E G I S T E R </h2>
+    <h3 style="color: #14ee0c"> R E G I S T E R </h3>
   </header>
   <div class="flex-grid">
     <div class="login-half left">
@@ -56,7 +56,7 @@
           </div>
         </form>
         <div>
-          <a href="/BookPositionServlet">
+          <a href="/HomeServlet">
             <button  class="recaptcha-trigger-button button red action-button expand-right">
               <span class="label"><<< Back</span>
               <span class="spinner"></span>

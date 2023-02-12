@@ -105,7 +105,7 @@
         </div>
     </div>
     <div class="signup-callout">
-        Need an account? <a href="">Sign up now!</a>
+        Need an account? <a href="/login/register.jsp">Sign up now!</a>
     </div>
 </div>
 </body>
