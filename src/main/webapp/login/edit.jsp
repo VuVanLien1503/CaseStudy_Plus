@@ -1,0 +1,217 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>List Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+<script type="text/javascript">
+    let current = 0;
+    let numIMG = 4;
+
+    function switchImage() {
+        current++;
+        document.images['myimage'].src = 'home/img/img_' + current + '.png';
+        if (current <= numIMG) {
+            setTimeout("switchImage()", 2000);
+        } else {
+            current = 0;
+            setTimeout("switchImage()", 2000);
+        }
+    }
+
+    setTimeout("switchImage()", 2000);
+
+
+</script>
+<body>
+<div style="background-color: rgba(234,192,192,0.29)">
+    <div class="header">
+        <img name="myimage" src="home/img/img_3.png" class="imgHot"/>
+    </div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item" style="margin-left: 550px">
+                        <a class="nav-link" href="/HomeServlet">
+                            <h3 style="color: red"><i>Back To Home</i></h3></a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+
+
+    <h1 style="margin-left: 600px;color:red">Update</h1>
+    <div style="margin-left: 450px;margin-top: 20px">
+        <form action="/UsersServlet?action=edit&id=${user.id}" method="post">
+            <table border="1">
+                <tr>
+                    <th>Name</th>
+                    <td><input type="text" name="name" placeholder="${user.name}"></td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td><input type="text" name="email" placeholder="${user.email}"></td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <th>Confirm Password</th>
+                    <td><input type="password" name="confirm"></td>
+                </tr>
+                <tr>
+                    <th>BirthDay</th>
+                    <td><input type="text" name="birthDay" placeholder="${user.birthDay}" placeholder="YYYY-MM-DD"></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td><input type="text" name="phone" placeholder="${user.phone}"></td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td>
+                        <input type="file" name="image" id="image">
+                    </td>
+                </tr>
+                <tr style="text-align: center;color: red">
+                    <td colspan="2">
+                        <h6>
+                            <i>
+                                <c:if test="${message!=null}">
+                                    <span>ERROR...!</span><br>
+                                    ${message}
+                                </c:if>
+                            </i>
+                        </h6>
+                    </td>
+                </tr>
+                <tr style="text-align: center;margin-top: 50px">
+                    <td colspan="2">
+                        <button>Update</button>
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+
+    </div>
+
+</div>
+<div class="footer">
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+            <div class="me-5 d-none d-lg-block">
+                <span>Get connected with us on social networks:</span>
+            </div>
+            <div>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="" class="me-4 text-reset">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </section>
+        <section class="content">
+            <div class="container text-center text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            <i class="fas fa-gem me-3"></i>Thông-Tin CodeGym:
+                        </h6>
+                        <p>
+                            Công ty CP CodeGym Việt Nam - MST: 010 810 4526<br><br><br>
+
+                            Đ/c: Căn hộ TT01.23 dự án Hải Đăng city, phường Mỹ Đình 2, quận Nam Từ Liêm, thành
+                            phố
+                            Hà Nội
+                        </p>
+                    </div>
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Tại sao chọn CodeGym?
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset">Angular</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">Java</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">PHP</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">C#</a>
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                        <h6 class="text-uppercase fw-bold mb-4">
+                            Cộng đồng lập trình THPT
+                        </h6>
+                        <p>
+                            <a href="#!" class="text-reset"> Nhóm Học lập trình</a>
+
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset"> CLB Coding Dojo</a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset"> CodeGym Huế </a>
+                        </p>
+                        <p>
+                            <a href="#!" class="text-reset">CodeGym Đà Nẵng</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                        <p><i class="fas fa-home me-3"></i> CodeGym-HN-VN</p>
+                        <p>
+                            <i class="fas fa-envelope me-3"></i>
+                            codegym@Gmail.Com
+                        </p>
+                        <p><i class="fas fa-phone me-3"></i> + Hotline: 0989 965 376</p>
+                        <p><i class="fas fa-print me-3"></i> + Hotline: 0989 965 376</p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2022-11-20
+            <a class="text-reset fw-bold" href="https://online.codegym.vn/">CodeGym-HN</a>
+        </div>
+
+    </footer>
+
+</div>
+</body>
+
+</html>

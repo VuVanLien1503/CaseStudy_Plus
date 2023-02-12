@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 public class MyRegex {
     private String patternEmail = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
             + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
-    private String patternName = "[a-zA-Z0-9_-]{3,15}$";
+//    private String patternName = "[a-zA-Z0-9_-]{3,15}$";
+    private String patternName = "/^[a-zA-Z0-9ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũƠƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,16}$/";
     private String patternText = "[a-zA-Z0-9\\d]{4,60}$";
     private String patternPhone = "^[0][0-9]{9}$";
     private String patternPassWord = "^[a-zA-Z0-9]{6,15}$";

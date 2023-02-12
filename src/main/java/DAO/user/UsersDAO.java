@@ -3,10 +3,7 @@ package DAO.user;
 import DAO.MyConnection;
 import model.user.Users;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class UsersDAO {
     private final String SELECT_ALL_USES = "select * from users where status = true";
     private final String INSERT_USERS = "insert into users (name,email,password) values (?,?,?)";
     private final String SELECT_USERS_BY_ID = "select * from users where id = ? and status = true";
-    private final String UPDATE_USERS ="update users set password = ? where id = ?";
+    private final String UPDATE_USERS ="update users set name=?, email=?, password = ?,birthDay=?,phone=?,image=? where id = ?";
     private final String DELETE_USERS = "update users set status = false where id = ?";
 
 
@@ -59,11 +56,14 @@ public class UsersDAO {
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-               users = new Users(resultSet.getInt(1),
+               users = new Users(
+                       resultSet.getInt(1),
                        resultSet.getString(2),
                        resultSet.getString(3),
                        resultSet.getString(4),
-                       resultSet.getBoolean(5));
+                       resultSet.getDate(5),
+                       resultSet.getString(6),
+                       resultSet.getString(7));
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -72,8 +72,16 @@ public class UsersDAO {
     }
     public void update(Users users){
         try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USERS)){
-            preparedStatement.setString(1, users.getPassword());
-            preparedStatement.setInt(2,users.getId());
+            preparedStatement.setString(1, users.getName());
+            preparedStatement.setString(2, users.getEmail());
+            preparedStatement.setString(3, users.getPassword());
+
+            java.sql.Date sqlDate = new java.sql.Date(users.getBirthDay().getTime());
+
+            preparedStatement.setDate(4,  sqlDate);
+            preparedStatement.setString(5, users.getPhone());
+            preparedStatement.setString(6, users.getImage());
+            preparedStatement.setInt(7,users.getId());
             preparedStatement.executeUpdate();
         }catch (SQLException e) {
             e.printStackTrace();
