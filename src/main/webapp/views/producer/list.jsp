@@ -1,11 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 2/8/2023
-  Time: 11:31 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -196,8 +189,8 @@
 <div class="container">
     <nav class="navbar">
         <ul>
-            <li><a href="/BookServlet">Home</a></li>
-            <li><a href="/ProducerServlet?action=create">Create Producer</a></li>
+            <li><a href="/HomeServlet">Home</a></li>
+            <li><a href="/ProducerServlet?action=create">Create</a></li>
         </ul>
     </nav>
     <section id="home">
