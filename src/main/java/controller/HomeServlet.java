@@ -23,9 +23,6 @@ public class HomeServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "??":
-                login(request, response);
-                break;
             default:
                 showList(request, response);
                 break;

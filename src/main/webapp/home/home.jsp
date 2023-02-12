@@ -108,7 +108,7 @@
                 </c:when>
                 <c:otherwise>
                     <span style="color: palegreen;margin-right: 30px">
-                        <a href="/login/login.jsp" style="color: red">Đăng Xuất</a>
+                        <a href="/UsersServlet?action=logout" style="color: red">Đăng Xuất</a>
                     </span>
                     <a class="navbar-brand" href="/UsersServlet?action=edit&id=${Name_User.id}">
                         <img src="${Name_User.image}" alt="lol" style="width:40px;height: 40px" class="rounded-pill">

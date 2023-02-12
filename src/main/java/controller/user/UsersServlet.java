@@ -27,11 +27,24 @@ public class UsersServlet extends HttpServlet {
         }
 
         switch (action) {
+            case "logout":
+                logout(request,response);
+                break;
             case "create":
                 break;
             default:
                 register(response);
                 break;
+        }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        try {
+            response.sendRedirect("/login/login.jsp");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
