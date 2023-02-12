@@ -8,6 +8,12 @@ public class MyRegex {
     private String patternViet="^[a-zA-Z0-9\\sÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]{4,16}$";
     private String patternEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private String patternName = "[a-zA-Z0-9_-]{3,15}$";
+    private String patternFile="^[A-Za-z0-9_]+\\.png$";
+
+    public String getPatternFile() {
+        return patternFile;
+    }
+
     private String patternText = "[a-zA-Z0-9\\d]{4,60}$";
     private String patternPhone = "^0\\d{9}$";
     private String patternPassWord = "^[a-zA-Z0-9]{6,15}$";

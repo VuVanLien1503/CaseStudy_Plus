@@ -113,6 +113,28 @@
                             </select>
                         </td>
                     </tr>
+                    <tr style="text-align: center;color: red">
+                        <td colspan="2">
+                            <h6>
+                                <i>
+                                    <c:if test="${message!=null}">
+                                        ${message}
+                                    </c:if>
+                                </i>
+                            </h6>
+                        </td>
+                    </tr>
+                    <tr style="text-align: center;color: red">
+                        <td colspan="2">
+                            <h6>
+                                <i>
+                                    <c:if test="${message1!=null}">
+                                        ${message1}
+                                    </c:if>
+                                </i>
+                            </h6>
+                        </td>
+                    </tr>
                     <tr>
                         <td colspan="2" style="text-align: center">
                             <button>Create New</button>

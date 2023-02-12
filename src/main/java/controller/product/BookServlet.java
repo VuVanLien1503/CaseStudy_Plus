@@ -1,6 +1,7 @@
 package controller.product;
 
 import model.product.Book;
+import model.product.Position;
 import service.IMPL.product.PositionService;
 import service.IMPL.product.BookService;
 import service.IMPL.product.CategoryService;
@@ -58,7 +59,7 @@ public class BookServlet extends HttpServlet {
         }
         switch (action) {
             case "search":
-                search(request,response);
+                search(request, response);
                 break;
             case "delete":
                 delete(request, response);
@@ -74,7 +75,7 @@ public class BookServlet extends HttpServlet {
     }
 
     private void search(HttpServletRequest request, HttpServletResponse response) {
-        String value =request.getParameter("search");
+        String value = request.getParameter("search");
         List<Book> list = bookService.selectName(value);
         int totalPages = (int) Math.ceil(list.size() / 4);
         String currentPageStr = request.getParameter("page");
@@ -171,24 +172,154 @@ public class BookServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) {
+        int number = 0;
+        String nameOut = null;
+        String pathImage = null;
+        boolean status_book = false;
+        boolean check = false;
+        boolean checkQuantity=false;
+        int quantity = 0;
         String path = "../../image/imageBook/lapTrinh/";
         String name = request.getParameter("name");
         String descriptions = request.getParameter("descriptions");
-        String image = path + request.getParameter("imagePath");
+        String image =  request.getParameter("imagePath");
 
-        boolean status_book = Boolean.parseBoolean(request.getParameter("status_book"));
+        String status = request.getParameter("status_book");
 
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
-
+        String quantityString = request.getParameter("quantity");
         int producer_id = Integer.parseInt(request.getParameter("producer"));
         int category_id = Integer.parseInt(request.getParameter("category"));
         int position_id = Integer.parseInt(request.getParameter("position"));
-        Book book = new Book(name, descriptions, image, status_book, quantity, producer_id, category_id, position_id);
-        bookService.insert(book);
-        try {
-            response.sendRedirect("/BookServlet");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (name == "" || descriptions == "" || quantityString == "" || image == "" || status == "") {
+            request.setAttribute("message", "Các Trường Không Được Để Trống");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+            request.setAttribute("listProducer", producerService.selectAll());
+            request.setAttribute("listCategory", categoryService.selectAll());
+            request.setAttribute("listBookPosition", positionService.selectAll());
+
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            boolean isName = myRegex.regex(name, myRegex.getPatternViet());
+            if (isName) {
+                boolean isDescription = myRegex.regex(descriptions, myRegex.getPatternViet());
+                if (isDescription) {
+                    boolean isQuantity = myRegex.regex(quantityString, myRegex.getPatternNumber());
+                    if (isQuantity) {
+                        quantity = Integer.parseInt(quantityString);
+                        if (quantity > 0) {
+                            boolean isImage = myRegex.regex(image, myRegex.getPatternFile());
+                            if (isImage) {
+
+                                for (Position p : positionService.selectAll() ) {
+                                    if (p.getId()==position_id){
+                                      number=p.getQuantity()-p.getQuantityNow();
+                                        if (quantity>number){
+                                            checkQuantity=true;
+                                            nameOut=p.getPosition();
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (checkQuantity){
+                                    request.setAttribute("message","Vị Trí "+nameOut+" Chỉ Còn Chứa được " + number );
+                                    RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                                    request.setAttribute("listProducer", producerService.selectAll());
+                                    request.setAttribute("listCategory", categoryService.selectAll());
+                                    request.setAttribute("listBookPosition", positionService.selectAll());
+                                    try {
+                                        dispatcher.forward(request, response);
+                                    } catch (ServletException | IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else {
+                                    status_book = Boolean.parseBoolean(status);
+                                     pathImage=path+image;
+                                    check = true;
+                                }
+
+                            } else {
+                                request.setAttribute("message", "Đường Dẫn Ảnh Sai");
+                                RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                                request.setAttribute("listProducer", producerService.selectAll());
+                                request.setAttribute("listCategory", categoryService.selectAll());
+                                request.setAttribute("listBookPosition", positionService.selectAll());
+                                try {
+                                    dispatcher.forward(request, response);
+                                } catch (ServletException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            request.setAttribute("message", "Số Lượng Phải Lớn Hơn Số 0 ");
+                            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                            request.setAttribute("listProducer", producerService.selectAll());
+                            request.setAttribute("listCategory", categoryService.selectAll());
+                            request.setAttribute("listBookPosition", positionService.selectAll());
+                            try {
+                                dispatcher.forward(request, response);
+                            } catch (ServletException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    } else {
+                        request.setAttribute("message", "Số Lượng Nhập Không Chính Xác (Chỉ Nhập Số)");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                        request.setAttribute("listProducer", producerService.selectAll());
+                        request.setAttribute("listCategory", categoryService.selectAll());
+                        request.setAttribute("listBookPosition", positionService.selectAll());
+
+                        try {
+                            dispatcher.forward(request, response);
+                        } catch (ServletException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    request.setAttribute("message", "Mô Tả Phải Từ 4-16 Ký Tự");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                    request.setAttribute("listProducer", producerService.selectAll());
+                    request.setAttribute("listCategory", categoryService.selectAll());
+                    request.setAttribute("listBookPosition", positionService.selectAll());
+
+                    try {
+                        dispatcher.forward(request, response);
+                    } catch (ServletException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                request.setAttribute("message", "Tên Từ 4-16 Ký Tự");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+                request.setAttribute("listProducer", producerService.selectAll());
+                request.setAttribute("listCategory", categoryService.selectAll());
+                request.setAttribute("listBookPosition", positionService.selectAll());
+
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (check) {
+            Book book = new Book(name, descriptions, pathImage, status_book, quantity, producer_id, category_id, position_id);
+            bookService.insert(book);
+            request.setAttribute("message1", "Đăng Ký Thành Công");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
+            request.setAttribute("listProducer", producerService.selectAll());
+            request.setAttribute("listCategory", categoryService.selectAll());
+            request.setAttribute("listBookPosition", positionService.selectAll());
+
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
