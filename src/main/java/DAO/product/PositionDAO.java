@@ -17,9 +17,11 @@ public class PositionDAO {
         connection = MyConnection.getConnection();
     }
     private final String SELECT_ALL_BOOK_POSITION = "select * from positions where status = true";
-    private final String INSERT_BOOK_POSITION = "insert into positions(name,positionContain,position,quantityNow)values(?,?,?,?)";
+    private final String INSERT_BOOK_POSITION = "insert into positions(name,contain,position,quantityNow)values(?,?,?,?)";
     private final String SELECT_BOOK_POSITION_BY_ID = "select * from positions where id = ? and status = true";
     private final String UPDATE_BOOK_POSITION ="update positions set name = ? , position = ? where id = ?";
+    private final String UPDATE_QUANTITY ="update positions set quantityNow = ? where id = ?";
+
     private final String DELETE_POSITION = "update positions set status = false where id = ?";
     public List<Position> selectAll(){
         List<Position> bookPositions = new ArrayList<>();
@@ -83,6 +85,15 @@ public class PositionDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void updateQuantityNow(Position bookPosition,int result){
+        try(PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_QUANTITY)){
+            preparedStatement.setInt(1,result);
+            preparedStatement.setInt(2,bookPosition.getId());
+            preparedStatement.executeUpdate();
+        }catch (SQLException e) {
             e.printStackTrace();
         }
     }

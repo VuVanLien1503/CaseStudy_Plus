@@ -44,8 +44,13 @@
             <input type="password" name="passwordConfirm" id="login-passwordConfirm-field">
           </div>
           <div >
-            <c:if test='${requestScope["error-password"] != null}'>
-              <span class="error" style="color: red">${requestScope["error-password"]}</span>
+            <c:if test='${requestScope["error1-password"] != null}'>
+              <span class="error" style="color: red">${requestScope["error1-password"]}</span>
+            </c:if>
+          </div>
+          <div >
+            <c:if test='${requestScope["error2-password"] != null}'>
+              <span class="error" style="color: red">${requestScope["error2-password"]}</span>
             </c:if>
           </div>
           <div>

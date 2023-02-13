@@ -1,0 +1,11 @@
+Tạo mới vị trí đúng:
+Name : Tầng 3
+Quantity: 100
+Position: A001
+QuantityNoW: 20
+
+Tạo mới vị trí sai:
+Name : Tầng 3
+Quantity: 100
+Position: A001
+QuantityNoW: 200

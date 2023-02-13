@@ -190,7 +190,7 @@
 <div class="container">
         <nav class="navbar">
             <ul>
-                <li><a href="/BookServlet">Home</a></li>
+                <li><a href="/HomeServlet">Home</a></li>
                 <li><a href="/BookPositionServlet?action=create">Create Position</a></li>
             </ul>
         </nav>

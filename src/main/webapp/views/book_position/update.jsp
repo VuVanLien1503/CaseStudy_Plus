@@ -186,7 +186,7 @@
 <div class="container">
     <nav class="navbar">
         <ul>
-            <li><a href="/BookServlet">Home</a></li>
+            <li><a href="/HomeServlet">Home</a></li>
             <li><a href="/BookPositionServlet">Back to list position</a></li>
         </ul>
     </nav>

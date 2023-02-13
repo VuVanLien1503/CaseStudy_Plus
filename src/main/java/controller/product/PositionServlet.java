@@ -92,7 +92,7 @@ public class PositionServlet extends HttpServlet {
         String quantityString = (request.getParameter("quantity"));
         String position = request.getParameter("position");
         String quantityNowString = (request.getParameter("quantityNow"));
-        boolean regexName =myRegex.regex(name, myRegex.getPatternName());
+        boolean regexName =myRegex.regex(name, myRegex.getPatternViet());
         boolean regexQuantity =myRegex.regex(quantityString,myRegex.getPatternNumber());
         boolean regexPosition =myRegex.regex(position, myRegex.getPatternName());
         boolean regexQuantityNow =myRegex.regex(quantityNowString,myRegex.getPatternNumber());
@@ -140,7 +140,7 @@ public class PositionServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String position = request.getParameter("position");
-        boolean regexName = myRegex.regex(name,myRegex.getPatternName());
+        boolean regexName = myRegex.regex(name,myRegex.getPatternViet());
         boolean regexPosition = myRegex.regex(position,myRegex.getPatternName());
         if (regexName&regexPosition){
             bookPosition = new Position(id,name,position);

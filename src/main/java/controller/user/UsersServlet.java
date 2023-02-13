@@ -1,6 +1,7 @@
 package controller.user;
 
 import model.user.Users;
+import service.IMPL.product.BookService;
 import service.IMPL.user.UsersService;
 import service.MyRegex;
 
@@ -8,6 +9,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,10 +18,12 @@ import java.util.Date;
 public class UsersServlet extends HttpServlet {
     private final MyRegex myRegex;
     private final UsersService usersService;
+    private final BookService bookService;
 
     public UsersServlet() {
         myRegex = new MyRegex();
         usersService = new UsersService();
+        bookService =new BookService();
     }
 
     @Override
@@ -300,7 +304,7 @@ public class UsersServlet extends HttpServlet {
     }
 
     private void createUsers(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher dispatcher = null;
+        RequestDispatcher dispatcher;
         Users users = null;
         String name = request.getParameter("name");
         String email = request.getParameter("email");
@@ -328,29 +332,27 @@ public class UsersServlet extends HttpServlet {
         if (users == null) {
             for (Users e : usersService.selectAll()) {
                 if (e.getEmail().equals(email)) {
-                    dispatcher = request.getRequestDispatcher("login/register.jsp");
-                    request.setAttribute("error-email", "Email already exists or is formatted incorrectly.Check again!");
-                    try {
-                        dispatcher.forward(request, response);
-                    } catch (ServletException | IOException ex) {
-                        ex.printStackTrace();
-                    }
+                    request.setAttribute("error-email", "Email đã tồn tại. Kiểm tra lại!");
                     break;
                 }
             }
             if (!password.equals(passwordConfirm)) {
+                request.setAttribute("error1-password", "Mật khẩu không khớp. Kiểm tra lại!");
+            }
+            if (!regexPassword | !regexPasswordConfirm) {
+                request.setAttribute("error2-password", "Sai định dạng(Mật khẩu tối thiểu 6 ký tự, không chứa kí tự đặc biệt). Kiểm tra lại!");
+            }
                 dispatcher = request.getRequestDispatcher("login/register.jsp");
-                request.setAttribute("error-password", "Passwords do not match or contain special characters.");
-                try {
+            try {
                     dispatcher.forward(request, response);
                 } catch (ServletException | IOException e) {
                     e.printStackTrace();
                 }
-            }
         } else {
             try {
-                response.sendRedirect("/BookPositionServlet");
-            } catch (IOException e) {
+                dispatcher = request.getRequestDispatcher("login/login.jsp");
+                dispatcher.forward(request,response);
+            } catch (IOException | ServletException e) {
                 e.printStackTrace();
             }
         }

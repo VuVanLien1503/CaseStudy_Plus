@@ -354,6 +354,9 @@ public class BookServlet extends HttpServlet {
             Book book = new Book(id, name, descriptions, image, status_book, quantity, producer_id, category_id, position_id);
             bookService.update(book);
             request.setAttribute("message1", "Cập Nhật Thành Công...!");
+            Position position = positionService.selectById(book.getPosition_id());
+            int result = position.getQuantityNow()+book.getQuantity();
+            positionService.updateQuantityNow(position,result);
             RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
             request.setAttribute("listProducer", producerService.selectAll());
             request.setAttribute("listCategory", categoryService.selectAll());
@@ -507,6 +510,9 @@ public class BookServlet extends HttpServlet {
             Book book = new Book(name, descriptions, pathImage, status_book, quantity, producer_id, category_id, position_id);
             bookService.insert(book);
             request.setAttribute("message1", "Đăng Ký Thành Công");
+            Position position = positionService.selectById(book.getPosition_id());
+            int result = position.getQuantityNow()+book.getQuantity();
+            positionService.updateQuantityNow(position,result);
             RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
             request.setAttribute("listProducer", producerService.selectAll());
             request.setAttribute("listCategory", categoryService.selectAll());
