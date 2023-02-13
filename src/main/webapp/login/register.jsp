@@ -61,25 +61,12 @@
           </div>
         </form>
         <div>
-          <a href="/HomeServlet">
+          <a href="/login/login.jsp">
             <button  class="recaptcha-trigger-button button red action-button expand-right">
               <span class="label"><<< Back</span>
               <span class="spinner"></span>
             </button></a>
         </div>
-        <form class="module login-form top-label-form" id="forgot-password-form" action="#0">
-          <h3>Reset Your Password</h3>
-          <div class="field">
-            <label for="forgot-email"> Email</label>
-            <input type="text" id="forgot-email" name="forgot-email" placeholder="your@email.com" required="">
-          </div>
-          <div class="field">
-            <input id="forgot-email-btn" type="submit" value="Send Password Reset Email" class="button button-medium button-fullwidth">
-          </div>
-          <div id="sent-message">
-            <div id="sent-message-message"></div>
-          </div>
-        </form>
       </div>
     </div>
     <div class="login-divider">
