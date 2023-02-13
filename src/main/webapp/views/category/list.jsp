@@ -62,6 +62,12 @@
     </nav>
 
     <div style="margin-left: 450px;margin-top: 50px">
+        <c:if test="${message1 != null}">
+            <i style="color: red">${message1}</i>
+        </c:if>
+        <c:if test="${message2 != null}">
+            <i style="color: blue">${message2}</i>
+        </c:if>
         <table border="1" style="width: 350px;text-align: center">
             <tr>
                 <th>STT</th>

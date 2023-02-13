@@ -53,10 +53,13 @@
 
         <div class="container col-md-4" style="width: 18rem; margin: 15px">
             <div class="card-body" style="text-align: center">
+                <c:if test="${message != null}">
+                    <i style="color: red">${message}</i>
+                </c:if>
                 <form action="/CategoryServlet?action=update&id=${category.id}" method="post">
                     <h3><i>${category.name}</i></h3>
                    Name : <input type="text" name="name">
-                    <button style="margin: 10px"><i style="color: blue">UPDATE</i></button>
+                    <button type="submit" style="margin: 10px"><i style="color: blue">UPDATE</i></button>
                 </form>
             </div>
         </div>

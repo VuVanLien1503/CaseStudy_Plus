@@ -58,6 +58,9 @@
 
                     <h3 style="margin: 10px"><input type="text"name="name"placeholder="Enter Name Category"></h3>
                     <button style="margin: 10px"><i style="color: blue">CREATE</i></button>
+                    <c:if test="${message != null}">
+                        <i style="color: red">${message}</i>
+                    </c:if>
                 </form>
             </div>
         </div>
