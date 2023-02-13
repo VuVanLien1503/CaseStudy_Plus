@@ -16,7 +16,7 @@ public class BookDAO {
             "inner join producer on book.producer_id =producer.id\n" +
             "inner join category on book.category_id =category.id\n" +
             "inner join positions on book.position_id = positions.id\n" +
-            "where producer.status=true and category.status=true and positions.status=true;";
+            "where producer.status=true and category.status=true and positions.status=true and book.status=true;";
 
     private final String UPDATE_BOOK = "UPDATE book SET name = ?, descriptions = ?, image = ?, status_book = ?, quantity = ?, producer_id = ?, category_id = ?, position_id = ? WHERE id=?;";
     private final String SELECT_BOOK_BY_ID = "select * from book where id = ? and status = true";

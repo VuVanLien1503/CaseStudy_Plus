@@ -126,7 +126,7 @@ public class BookServlet extends HttpServlet {
     private void delete(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
         bookService.delete(id);
-        request.setAttribute("message", "Success");
+        request.setAttribute("message", "Xóa Thành Công");
         RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/delete.jsp");
         try {
             dispatcher.forward(request, response);

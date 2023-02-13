@@ -54,8 +54,8 @@
         <h1 style="margin-left: 300px"><i>----------DELETE--------------</i></h1>
 
         <h3 style="margin-left: 400px">
-            <c:if test="${message == null}">
-                <i style="color: red">Xóa Thành Công</i>
+            <c:if test="${message != null}">
+                <i style="color: red">${message}</i>
             </c:if>
         </h3>
         <div style="margin-left: 300px">
@@ -108,9 +108,18 @@
 
                     </tr>
                     <tr>
-                        <td colspan="11">
-                            <button><span style="color: red">DELETE</span></button>
+                        <td colspan="9" style="text-align: center">
+                            <c:choose>
+                                <c:when test="${message == null}">
+                                    <button><span style="color: red">DELETE</span></button>
+
+                                </c:when>
+                                <c:otherwise>
+                                    <h3 style="color: blue"><a href="/BookServlet">Back To List Book</a></h3>
+                                </c:otherwise>
+                            </c:choose>
                         </td>
+
                     </tr>
                 </table>
             </form>
