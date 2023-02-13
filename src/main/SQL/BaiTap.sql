@@ -10,7 +10,7 @@ create table users(
                       image varchar(255),
                       status boolean default true
 );
-insert into users (name,email,password,birthDay,phone,image)values("Hoàng","hoang@gmail.com","123456",'2000-1-15','0989123455','../../image/imageUser/user_1.png');
+insert into users (name,email,password,birthDay,phone,image)values("Hoàng","hoang@gmail.com","123456",'2000-1-15','0989123455','../../image/imageUser/user_2.png');
 insert into users (name,email,password,birthDay,phone,image)values("Liên","lien@gmail.com","123456",'2001-2-16','0989123456','../../image/imageUser/user_2.png');
 insert into users (name,email,password,birthDay,phone,image)values("Sơn","son@gmail.com","123456",'2002-3-17','0989123457','../../image/imageUser/user_3.png');
 insert into users (name,email,password,birthDay,phone,image)values("Vũ Anh","vuAnh@gmail.com","123456",'2003-4-18','0989123458','../../image/imageUser/user_4.png');

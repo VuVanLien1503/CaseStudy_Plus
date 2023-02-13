@@ -509,6 +509,7 @@ public class BookServlet extends HttpServlet {
         if (check) {
             Book book = new Book(name, descriptions, pathImage, status_book, quantity, producer_id, category_id, position_id);
             bookService.insert(book);
+
             request.setAttribute("message1", "Đăng Ký Thành Công");
             Position position = positionService.selectById(book.getPosition_id());
             int result = position.getQuantityNow()+book.getQuantity();
