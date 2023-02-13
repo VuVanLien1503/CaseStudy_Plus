@@ -45,10 +45,10 @@
                             <span style="color: #14ee0c">Home</span></a>
                     </li>
 
-                    <div style="margin-left: 100px">
-                        <input type="text"name="search " placeholder="Enter Category"style="width: 350px;height: 40px;border-radius: 55px" >
-                        <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>
-                    </div>
+<%--                    <div style="margin-left: 100px">--%>
+<%--                        <input type="text"name="search " placeholder="Enter Category"style="width: 350px;height: 40px;border-radius: 55px" >--%>
+<%--                        <button style="border-radius: 30px ;width: 40px; height: 40px;background-color: #0c39ee">Tìm</button>--%>
+<%--                    </div>--%>
                     </form>
                 </ul>
                 <div>

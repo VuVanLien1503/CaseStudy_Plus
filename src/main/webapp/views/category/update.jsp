@@ -57,7 +57,7 @@
                     <i style="color: red">${message}</i>
                 </c:if>
                 <form action="/CategoryServlet?action=update&id=${category.id}" method="post">
-                    <h3><i>${category.name}</i></h3>
+                    <h3><i>Name: ${category.name}</i></h3>
                    Name : <input type="text" name="name">
                     <button type="submit" style="margin: 10px"><i style="color: blue">UPDATE</i></button>
                 </form>
