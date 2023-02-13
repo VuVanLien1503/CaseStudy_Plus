@@ -84,13 +84,29 @@ public class CategoryServlet extends HttpServlet {
     }
 
     private void insert(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher dispatcher = null;
         String name = request.getParameter("name");
-        categoryService.insert(new Category(name));
-        try {
-            response.sendRedirect("/CategoryServlet");
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(myRegex.regex(name,myRegex.getPatternViet())){
+            categoryService.insert(new Category(name));
+            try {
+                dispatcher = request.getRequestDispatcher("views/category/list.jsp");
+                request.setAttribute("categories", categoryService.selectAll());
+                request.setAttribute("message2", "Insert Successful");
+                dispatcher.forward(request, response);
+            } catch (IOException | ServletException e) {
+                e.printStackTrace();
+            }
+        }else{
+            dispatcher = request.getRequestDispatcher("views/category/insert.jsp");
+            request.setAttribute("message", "Wrong name format");
+            request.setAttribute("categories", categoryService.selectAll());
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
     private void updateForm(HttpServletRequest request, HttpServletResponse response) {
@@ -108,21 +124,21 @@ public class CategoryServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+        Category category =new Category(id, name);
         if (myRegex.regex(name, myRegex.getPatternViet())) {
-            categoryService.update(new Category(id, name));
+            categoryService.update(category);
             try {
                 dispatcher = request.getRequestDispatcher("views/category/list.jsp");
                 request.setAttribute("categories", categoryService.selectAll());
                 request.setAttribute("message1", "Update Successful");
-
                 dispatcher.forward(request, response);
             } catch (IOException | ServletException e) {
                 e.printStackTrace();
             }
         } else {
-            dispatcher = request.getRequestDispatcher("views/category/list.jsp");
-            request.setAttribute("categories", categoryService.selectAll());
+            dispatcher = request.getRequestDispatcher("views/category/update.jsp");
             request.setAttribute("message", "Wrong name format");
+            request.setAttribute("category",category);
             try {
                 dispatcher.forward(request, response);
             } catch (ServletException | IOException e) {
