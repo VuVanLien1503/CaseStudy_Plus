@@ -45,7 +45,7 @@
                     <li class="nav-item">
                         <c:choose>
                             <c:when test="${Name_User==null}">
-                                <a class="nav-link" href="#"><span style="color: #14ee0c">List-Detail</span></a>
+                                <a class="nav-link" href="#"><span style="color: red">List-Detail</span></a>
                             </c:when>
                             <c:otherwise>
                                 <a class="nav-link" href="/BookServlet"><span style="color: #14ee0c">List-Detail</span></a>
@@ -56,11 +56,11 @@
                         <c:choose>
                             <c:when test="${Name_User==null}">
                                 <a class="nav-link" href="#">
-                                    <span style="color: #ea0a46">CategoryServlet</span></a>
+                                    <span style="color:red">CategoryServlet</span></a>
                             </c:when>
                             <c:otherwise>
                                 <a class="nav-link" href="/CategoryServlet">
-                                    <span style="color: #ea0a46">CategoryServlet</span></a>
+                                    <span style="color: #14ee0c">CategoryServlet</span></a>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -68,11 +68,11 @@
                         <c:choose>
                             <c:when test="${Name_User==null}">
                                 <a class="nav-link" href="#">
-                                    <span style="color: #ac0fe0">ProducerServlet</span></a>
+                                    <span style="color: red">ProducerServlet</span></a>
                             </c:when>
                             <c:otherwise>
                                 <a class="nav-link" href="/ProducerServlet">
-                                    <span style="color: #ac0fe0">ProducerServlet</span></a>
+                                    <span style="color: #14ee0c">ProducerServlet</span></a>
                             </c:otherwise>
                         </c:choose>
 
@@ -81,11 +81,11 @@
                         <c:choose>
                             <c:when test="${Name_User==null}">
                                 <a class="nav-link" href="#">
-                                    <span style="color: #e0b60f">PositionServlet</span></a>
+                                    <span style="color: red">PositionServlet</span></a>
                             </c:when>
                             <c:otherwise>
                                 <a class="nav-link" href="/BookPositionServlet">
-                                    <span style="color: #e0b60f">PositionServlet</span></a>
+                                    <span style="color: #14ee0c">PositionServlet</span></a>
                             </c:otherwise>
                         </c:choose>
                     </li>
@@ -137,7 +137,7 @@
                                         <p class="card-text"></p>
                                         <c:choose>
                                             <c:when test="${Name_User==null}">
-                                                <span class="btn btn-primary">Detail</span>
+                                                <span class="btn btn-primary" style="color: red">Detail</span>
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="/BookServlet?action=detail&id=${element.id} "

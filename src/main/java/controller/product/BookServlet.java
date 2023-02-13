@@ -506,6 +506,7 @@ public class BookServlet extends HttpServlet {
         if (check) {
             Book book = new Book(name, descriptions, pathImage, status_book, quantity, producer_id, category_id, position_id);
             bookService.insert(book);
+
             request.setAttribute("message1", "Đăng Ký Thành Công");
             RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
             request.setAttribute("listProducer", producerService.selectAll());
