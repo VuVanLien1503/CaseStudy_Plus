@@ -44,4 +44,7 @@ public class BookService implements ICrud<Book>, ISearch<Book> {
     public List<Book> selectName(String value) {
         return bookDAO.findByName(value);
     }
+    public List<Book> selectNameBook(String value) {
+        return bookDAO.findByNameBook(value);
+    }
 }

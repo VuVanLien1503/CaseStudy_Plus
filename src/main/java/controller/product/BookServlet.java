@@ -58,6 +58,9 @@ public class BookServlet extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "searchByName":
+                searchByName(request,response);
+                break;
             case "search":
                 search(request, response);
                 break;
@@ -71,6 +74,41 @@ public class BookServlet extends HttpServlet {
                 edit(request, response);
                 break;
         }
+
+    }
+
+    private void searchByName(HttpServletRequest request, HttpServletResponse response) {
+        String value = request.getParameter("search");
+        List<Book> list = bookService.selectNameBook("%"+value+"%");
+        int totalPages = (int) Math.ceil(list.size() / 4);
+        String currentPageStr = request.getParameter("page");
+        int currentPage = (currentPageStr != null) ? Integer.parseInt(currentPageStr) : 1;
+        if (currentPage > totalPages + 1) {
+            currentPage = 1;
+        } else {
+            if (currentPage < 1) {
+                currentPage = totalPages + 1;
+            }
+        }
+        int startIndex = (currentPage - 1) * 4;
+        int endIndex = Math.min(startIndex + 4, list.size());
+        List<Book> currentPageProducts = list.subList(startIndex, endIndex);
+        request.setAttribute("listBooks", currentPageProducts);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("totalPages", totalPages);
+
+        request.setAttribute("listProducer", producerService.selectAll());
+        request.setAttribute("listCategory", categoryService.selectAll());
+        request.setAttribute("listPosition", positionService.selectAll());
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/book/display.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException | IOException e) {
+            e.printStackTrace();
+        }
+
+
 
     }
 

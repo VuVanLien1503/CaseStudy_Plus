@@ -29,6 +29,13 @@ public class BookDAO {
             "  inner join category on book.category_id =category.id " +
             "where category.status=true and category.name= ?;";
 
+    private final String SELECT_BY_NAME = "select  book.id,book.name,book.descriptions,book.image,book.status_book,book.quantity,book.producer_id,book.category_id,book.position_id,book.status\n" +
+            " FROM book\n" +
+            " inner join producer on book.producer_id =producer.id \n" +
+            " inner join category on book.category_id =category.id \n" +
+            " inner join positions on book.position_id =positions.id \n" +
+            " where category.status=true and producer.status=true and positions.status =true and book.name like ?;";
+
     public BookDAO() {
         connection = MyConnection.getConnection();
     }
@@ -37,6 +44,32 @@ public class BookDAO {
 
         List<Book> listBook = new ArrayList<>();
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_CATEGORY)) {
+            preparedStatement.setString(1, value);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                listBook.add(new Book(
+                        resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getBoolean(5),
+                        resultSet.getInt(6),
+                        resultSet.getInt(7),
+                        resultSet.getInt(8),
+                        resultSet.getInt(9),
+                        resultSet.getBoolean(10)
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listBook;
+    }
+
+    public List<Book> findByNameBook(String value) {
+
+        List<Book> listBook = new ArrayList<>();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_NAME)) {
             preparedStatement.setString(1, value);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
