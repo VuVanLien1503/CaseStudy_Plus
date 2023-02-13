@@ -151,24 +151,183 @@ public class BookServlet extends HttpServlet {
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) {
-        String path = "../../image/imageBook/lapTrinh/";
+        String pathViews = "views/book/edit.jsp";
+        int number = 0;
+        String nameOut = null;
+        String pathImage = null;
+        boolean status_book = false;
+        boolean check = false;
+        boolean checkQuantity = false;
+        int quantity = 0;
         int id = Integer.parseInt(request.getParameter("id"));
+        String path = "../../image/imageBook/lapTrinh/";
         String name = request.getParameter("name");
         String descriptions = request.getParameter("descriptions");
-        String image = path + request.getParameter("imagePath");
-        boolean status_book = Boolean.parseBoolean(request.getParameter("status_book"));
-        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String image = request.getParameter("imagePath");
+
+        String status = request.getParameter("status_book");
+
+        String quantityString = request.getParameter("quantity");
         int producer_id = Integer.parseInt(request.getParameter("producer"));
         int category_id = Integer.parseInt(request.getParameter("category"));
-        int book_position = Integer.parseInt(request.getParameter("position"));
-        Book book = new Book(id, name, descriptions, image, status_book, quantity, producer_id, category_id, book_position);
-        bookService.update(book);
-        try {
-            response.sendRedirect("/BookServlet");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int position_id = Integer.parseInt(request.getParameter("position"));
+        if (name == "" || descriptions == "" || quantityString == "" || image == "" || status == null) {
+            if (status == null) {
+                request.setAttribute("message", "Chưa Chọn Loại Sách Mới Hay Cũ");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                request.setAttribute("listProducer", producerService.selectAll());
+                request.setAttribute("listCategory", categoryService.selectAll());
+                request.setAttribute("listPosition", positionService.selectAll());
+                request.setAttribute("book", bookService.selectById(id));
 
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+                request.setAttribute("message", "Các Trường Không Được Để Trống");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                request.setAttribute("listProducer", producerService.selectAll());
+                request.setAttribute("listCategory", categoryService.selectAll());
+                request.setAttribute("listPosition", positionService.selectAll());
+                request.setAttribute("book", bookService.selectById(id));
+
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            boolean isName = myRegex.regex(name, myRegex.getPatternViet());
+            if (isName) {
+                boolean isDescription = myRegex.regex(descriptions, myRegex.getPatternViet());
+                if (isDescription) {
+                    boolean isQuantity = myRegex.regex(quantityString, myRegex.getPatternNumber());
+                    if (isQuantity) {
+                        quantity = Integer.parseInt(quantityString);
+                        if (quantity > 0) {
+                            boolean isImage = myRegex.regex(image, myRegex.getPatternFile());
+                            if (isImage) {
+                                for (Position p : positionService.selectAll()) {
+                                    if (p.getId() == position_id) {
+                                        number = p.getQuantity() - p.getQuantityNow();
+                                        if (quantity > number) {
+                                            checkQuantity = true;
+                                            nameOut = p.getPosition();
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (checkQuantity) {
+                                    request.setAttribute("message", "Vị Trí " + nameOut + " Chỉ Còn Chứa được " + number);
+                                    RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                                    request.setAttribute("listProducer", producerService.selectAll());
+                                    request.setAttribute("listCategory", categoryService.selectAll());
+                                    request.setAttribute("listPosition", positionService.selectAll());
+                                    request.setAttribute("book", bookService.selectById(id));
+
+                                    try {
+                                        dispatcher.forward(request, response);
+                                    } catch (ServletException | IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    status_book = Boolean.parseBoolean(status);
+                                    pathImage = path + image;
+                                    check = true;
+                                }
+
+                            } else {
+                                request.setAttribute("message", "Đường Dẫn Ảnh Sai");
+                                RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                                request.setAttribute("listProducer", producerService.selectAll());
+                                request.setAttribute("listCategory", categoryService.selectAll());
+                                request.setAttribute("listPosition", positionService.selectAll());
+                                request.setAttribute("book", bookService.selectById(id));
+
+                                try {
+                                    dispatcher.forward(request, response);
+                                } catch (ServletException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        } else {
+                            request.setAttribute("message", "Số Lượng Phải Lớn Hơn Số 0 ");
+                            RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                            request.setAttribute("listProducer", producerService.selectAll());
+                            request.setAttribute("listCategory", categoryService.selectAll());
+                            request.setAttribute("listPosition", positionService.selectAll());
+                            request.setAttribute("book", bookService.selectById(id));
+
+                            try {
+                                dispatcher.forward(request, response);
+                            } catch (ServletException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    } else {
+                        request.setAttribute("message", "Số Lượng Nhập Không Chính Xác (Chỉ Nhập Số)");
+                        RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                        request.setAttribute("listProducer", producerService.selectAll());
+                        request.setAttribute("listCategory", categoryService.selectAll());
+                        request.setAttribute("listPosition", positionService.selectAll());
+                        request.setAttribute("book", bookService.selectById(id));
+
+                        try {
+                            dispatcher.forward(request, response);
+                        } catch (ServletException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    request.setAttribute("message", "Mô Tả Phải Từ 4-16 Ký Tự");
+                    RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                    request.setAttribute("listProducer", producerService.selectAll());
+                    request.setAttribute("listCategory", categoryService.selectAll());
+                    request.setAttribute("listPosition", positionService.selectAll());
+                    request.setAttribute("book", bookService.selectById(id));
+
+                    try {
+                        dispatcher.forward(request, response);
+                    } catch (ServletException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                request.setAttribute("message", "Tên Từ 4-16 Ký Tự");
+                RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+                request.setAttribute("listProducer", producerService.selectAll());
+                request.setAttribute("listCategory", categoryService.selectAll());
+                request.setAttribute("listPosition", positionService.selectAll());
+                request.setAttribute("book", bookService.selectById(id));
+
+                try {
+                    dispatcher.forward(request, response);
+                } catch (ServletException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (check) {
+            Book book = new Book(id, name, descriptions, image, status_book, quantity, producer_id, category_id, position_id);
+            bookService.update(book);
+            request.setAttribute("message1", "Cập Nhật Thành Công...!");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(pathViews);
+            request.setAttribute("listProducer", producerService.selectAll());
+            request.setAttribute("listCategory", categoryService.selectAll());
+            request.setAttribute("listPosition", positionService.selectAll());
+            request.setAttribute("book", bookService.selectById(id));
+
+            try {
+                dispatcher.forward(request, response);
+            } catch (ServletException | IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) {
@@ -177,12 +336,12 @@ public class BookServlet extends HttpServlet {
         String pathImage = null;
         boolean status_book = false;
         boolean check = false;
-        boolean checkQuantity=false;
+        boolean checkQuantity = false;
         int quantity = 0;
         String path = "../../image/imageBook/lapTrinh/";
         String name = request.getParameter("name");
         String descriptions = request.getParameter("descriptions");
-        String image =  request.getParameter("imagePath");
+        String image = request.getParameter("imagePath");
 
         String status = request.getParameter("status_book");
 
@@ -214,18 +373,18 @@ public class BookServlet extends HttpServlet {
                             boolean isImage = myRegex.regex(image, myRegex.getPatternFile());
                             if (isImage) {
 
-                                for (Position p : positionService.selectAll() ) {
-                                    if (p.getId()==position_id){
-                                      number=p.getQuantity()-p.getQuantityNow();
-                                        if (quantity>number){
-                                            checkQuantity=true;
-                                            nameOut=p.getPosition();
+                                for (Position p : positionService.selectAll()) {
+                                    if (p.getId() == position_id) {
+                                        number = p.getQuantity() - p.getQuantityNow();
+                                        if (quantity > number) {
+                                            checkQuantity = true;
+                                            nameOut = p.getPosition();
                                             break;
                                         }
                                     }
                                 }
-                                if (checkQuantity){
-                                    request.setAttribute("message","Vị Trí "+nameOut+" Chỉ Còn Chứa được " + number );
+                                if (checkQuantity) {
+                                    request.setAttribute("message", "Vị Trí " + nameOut + " Chỉ Còn Chứa được " + number);
                                     RequestDispatcher dispatcher = request.getRequestDispatcher("views/book/create.jsp");
                                     request.setAttribute("listProducer", producerService.selectAll());
                                     request.setAttribute("listCategory", categoryService.selectAll());
@@ -235,9 +394,9 @@ public class BookServlet extends HttpServlet {
                                     } catch (ServletException | IOException e) {
                                         e.printStackTrace();
                                     }
-                                }else {
+                                } else {
                                     status_book = Boolean.parseBoolean(status);
-                                     pathImage=path+image;
+                                    pathImage = path + image;
                                     check = true;
                                 }
 
